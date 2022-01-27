@@ -40,22 +40,4 @@ public class PaymentCreation {
                 break;
         }
     }
-
-    /** Создать платёж **/
-//    public void createPayment(PaymentTypes paymentType){
-//        switch (paymentType){
-//            case COMMERCIALPAYMENT:
-//                CommercialPayment.createCommercialPayment();
-//                break;
-//            case BUDGETPAYMENT:
-//                BudgetPayment.createBudgetPayment();
-//                break;
-//            case HOUSING:
-//                HousingPayment.createHousingPayment();
-//                break;
-//            case BETWEENACCOUNTS:
-//                PaymentBetweenAccounts.createPaymentBetweenAccounts();
-//                break;
-//        }
-//    }
 }

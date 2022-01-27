@@ -69,7 +69,7 @@ public class BudgetPayment {
     public static void createBudgetPayment(BudgetPayment paymentForm, String amount, String payeePartialName, String kbk, String docNumber, String uin){
         paymentForm.typeSum(amount);
         paymentForm.selectPayee(payeePartialName);
-        //paymentForm.selectPayerStatus();
+        paymentForm.selectPayerStatus();
         paymentForm.typeKbk(kbk);
         paymentForm.selectPaymentReason();
         paymentForm.typeDocNumber(docNumber);
