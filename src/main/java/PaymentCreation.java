@@ -5,13 +5,13 @@ import java.time.*;
 
 
 public class PaymentCreation {
-    /** Закрыть форму подтверждения эл.почты **/
-    public void closeWarning(){
-        WebElement closeWarningButton = Login.driver.findElement(By.cssSelector(".close[title='Закрыть']"));
-        closeWarningButton.click();
+    /** Открыть раздел "Счета и платежи" **/
+    public void openAccountsPaymentsPage(){
+        WebElement accountsPaymentsOption = Login.driver.findElement(By.cssSelector("button[aria-label=\"Счета и платежи\"]"));
+        accountsPaymentsOption.click();
     }
 
-    /** Нажать кнопку "Новый платёж" **/
+    /** Нажать на кнопку "Новый платёж" **/
     public void clickNewPaymentButton(){
         new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
               until(ExpectedConditions.invisibilityOfElementLocated(By.className("globalSpinnerWidget__u-EKzw")));
