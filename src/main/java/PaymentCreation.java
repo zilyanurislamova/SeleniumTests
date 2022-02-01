@@ -11,6 +11,7 @@ public class PaymentCreation {
 
     /** Нажать на кнопку "Новый платёж" **/
     public void clickNewPaymentButton(){
+        Login.driver.findElement(By.className("button-wrapper")).click();
         WebElement newPaymentButton = Login.driver.findElement(By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success"));
         newPaymentButton.click();
     }
