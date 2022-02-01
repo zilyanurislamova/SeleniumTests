@@ -1,7 +1,5 @@
-import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.*;
-
-import java.time.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 
 public class PaymentCreation {
@@ -13,8 +11,6 @@ public class PaymentCreation {
 
     /** Нажать на кнопку "Новый платёж" **/
     public void clickNewPaymentButton(){
-        new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
-              until(ExpectedConditions.invisibilityOfElementLocated(By.className("globalSpinnerWidget__u-EKzw")));
         WebElement newPaymentButton = Login.driver.findElement(By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success"));
         newPaymentButton.click();
     }
@@ -27,15 +23,15 @@ public class PaymentCreation {
                 commercialPaymentOption.click();
                 break;
             case BUDGETPAYMENT:
-                WebElement budgetPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(2) a"));
+                WebElement budgetPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(3) a"));
                 budgetPaymentOption.click();
                 break;
             case HOUSING:
-                WebElement housingPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(3) a"));
+                WebElement housingPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(4) a"));
                 housingPaymentOption.click();
                 break;
             case BETWEENACCOUNTS:
-                WebElement paymentBetweenAccountsOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(4) a"));
+                WebElement paymentBetweenAccountsOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(5) a"));
                 paymentBetweenAccountsOption.click();
                 break;
         }
