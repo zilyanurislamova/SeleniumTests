@@ -39,5 +39,12 @@ public class PaymentCreation {
                 paymentBetweenAccountsOption.click();
                 break;
         }
+        }
+
+    /** Открыть форму создания платежа **/
+    public static void openPaymentCreationForm(PaymentCreation accountsPaymentsPage, PaymentTypes paymentType){
+        accountsPaymentsPage.openAccountsPaymentsPage();
+        accountsPaymentsPage.clickNewPaymentButton();
+        accountsPaymentsPage.selectPaymentType(paymentType);
     }
 }
