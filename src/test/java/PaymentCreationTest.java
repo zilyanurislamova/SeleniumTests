@@ -1,4 +1,3 @@
-import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -24,17 +23,6 @@ public class PaymentCreationTest {
         WebElement successfulCreationNotification = Login.driver.findElement(By.xpath("//h2[text()='Платёжное поручение создано']"));
         assertEquals("Платёжное поручение создано", successfulCreationNotification.getText());
         System.out.println("Платёж в бюджет успешно создан");
-    }
-
-    @Test
-    @Ignore
-    public void shouldCreateHousingPayment(){
-        Login.login(new Login(),"https://sbi.sberbank.ru:9443/ic/dcb/?#/");
-        PaymentCreation.openPaymentCreationForm(new PaymentCreation(), PaymentTypes.HOUSING);
-        HousingPayment.createHousingPayment(new HousingPayment(), "71,28");
-        WebElement successfulCreationNotification = Login.driver.findElement(By.xpath("//h2[text()='Платёжное поручение создано']"));
-        assertEquals("Платёжное поручение создано", successfulCreationNotification.getText());
-        System.out.println("Платёж ЖКУ успешно создан");
     }
 
     @Test

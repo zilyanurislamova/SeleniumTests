@@ -27,10 +27,6 @@ public class PaymentCreation {
                 WebElement budgetPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(3) a"));
                 budgetPaymentOption.click();
                 break;
-            case HOUSING:
-                WebElement housingPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(4) a"));
-                housingPaymentOption.click();
-                break;
             case BETWEENACCOUNTS:
                 WebElement paymentBetweenAccountsOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:nth-child(5) a"));
                 paymentBetweenAccountsOption.click();
