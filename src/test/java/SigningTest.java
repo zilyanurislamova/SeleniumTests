@@ -9,7 +9,7 @@ public class SigningTest {
         PaymentCreationTest paymentToBeCreated = new PaymentCreationTest();
         paymentToBeCreated.shouldCreatePaymentBetweenAccounts();
         Signing.signPayment(new Signing(), "11111");
-        WebElement successfulSigningNotification = Login.driver.findElement(By.xpath("//div[text()='Платёжное поручение подписано']"));
+        WebElement successfulSigningNotification = Login.driver.findElement(By.xpath("//h2[text()='Платёжное поручение подписано']"));
         assertEquals("Платёжное поручение подписано", successfulSigningNotification.getText());
     }
 }

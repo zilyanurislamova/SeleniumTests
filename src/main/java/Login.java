@@ -1,8 +1,8 @@
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.*;
-import java.util.*;
+import java.time.Duration;
 
 public class Login {
     static WebDriver driver = new ChromeDriver();
@@ -14,37 +14,14 @@ public class Login {
         driver.get(url);
     }
 
-    /** Ввести Логин **/
-    public void typeLogin(String login){
-        WebElement loginField = driver.findElement(By.cssSelector("#inputLogin"));
-        loginField.sendKeys(login);
-    }
-
-    /** Ввести Пароль **/
-    public void typePassword(String password){
-        WebElement passwordField = driver.findElement(By.cssSelector("#inputPassword"));
-        passwordField.sendKeys(password);
-    }
-
-    /** Нажать кнопку "Войти" **/
-    public void clickEnterButton(){
-        driver.findElement(By.cssSelector(".col-xs-6.text-right.login-action")).click();
-    }
-
-    /** Ввести смс-код **/
-    public void typeCode(String code){
-        List<WebElement> numbers = driver.findElements(By.cssSelector(".sms-code-input-wrapper input"));
-        for (WebElement number : numbers){
-            number.sendKeys(code);
-        }
+    /** Нажать на ссылку "Войти в демо-режим" **/
+    public void clickDemoLink(){
+        driver.findElement(By.cssSelector("a[href='https://sbi.sberbank.ru:9444/ic/dcb/login.html?demoMode&version=3.0']")).click();
     }
 
     /** Залогиниться **/
-    public static void login(Login loginPage, String url, String login, String password, String code){
+    public static void login(Login loginPage, String url){
         loginPage.openPage(url);
-        loginPage.typeLogin(login);
-        loginPage.typePassword(password);
-        loginPage.clickEnterButton();
-        loginPage.typeCode(code);
+        loginPage.clickDemoLink();
     }
 }
