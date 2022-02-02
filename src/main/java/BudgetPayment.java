@@ -25,28 +25,6 @@ public class BudgetPayment {
     }
 
     /**
-     * Создать получателя
-     **/
-    public static void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
-        WebElement createPayeeButton = Login.driver.findElement(By.xpath("//button[text()='Создать нового']"));
-        createPayeeButton.click();
-        WebElement payeeNameField = Login.driver.findElement(By.cssSelector("input[placeholder='Наименование контрагента']"));
-        payeeNameField.sendKeys(payeeName);
-        WebElement innField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите ИНН или КИО']"));
-        innField.sendKeys(inn);
-        WebElement kppField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите КПП']"));
-        kppField.sendKeys(kpp);
-        WebElement accountNumberField = Login.driver.findElement(By.cssSelector("input[name='accountNumber']"));
-        accountNumberField.sendKeys(accountNumber);
-        WebElement bicField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите несколько цифр']"));
-        bicField.sendKeys(bic);
-        WebElement submitButton = Login.driver.findElement(By.xpath("//button[text()='Добавить']"));
-        new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
-                until(ExpectedConditions.elementToBeClickable(submitButton));
-        submitButton.click();
-    }
-
-    /**
      * Выбрать статус плательщика
      **/
     public static void selectPayerStatus() {
@@ -128,6 +106,28 @@ public class BudgetPayment {
     public static void clickSaveButton() {
         WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
         saveButton.click();
+    }
+
+    /**
+     * Создать получателя
+     **/
+    public static void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
+        WebElement createPayeeButton = Login.driver.findElement(By.xpath("//button[text()='Создать нового']"));
+        createPayeeButton.click();
+        WebElement payeeNameField = Login.driver.findElement(By.cssSelector("input[placeholder='Наименование контрагента']"));
+        payeeNameField.sendKeys(payeeName);
+        WebElement innField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите ИНН или КИО']"));
+        innField.sendKeys(inn);
+        WebElement kppField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите КПП']"));
+        kppField.sendKeys(kpp);
+        WebElement accountNumberField = Login.driver.findElement(By.cssSelector("input[name='accountNumber']"));
+        accountNumberField.sendKeys(accountNumber);
+        WebElement bicField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите несколько цифр']"));
+        bicField.sendKeys(bic);
+        WebElement submitButton = Login.driver.findElement(By.xpath("//button[text()='Добавить']"));
+        new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
+                until(ExpectedConditions.elementToBeClickable(submitButton));
+        submitButton.click();
     }
 
     /**
