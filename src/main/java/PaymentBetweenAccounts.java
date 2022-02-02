@@ -5,41 +5,41 @@ import static org.openqa.selenium.Keys.ENTER;
 
 public class PaymentBetweenAccounts {
     /** Выбрать счёт списания **/
-    public void selectPayer(){
+    public static void selectPayer(){
         WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]"));
         payerField.sendKeys(ENTER);
     }
 
     /** Выбрать счёт зачисления **/
-    public void selectPayee(){
+    public static void selectPayee(){
         WebElement payeeField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
         payeeField.sendKeys(DOWN, ENTER);
     }
 
     /** Ввести сумму **/
-    public void typeSum(String amount){
+    public static void typeSum(String amount){
         WebElement sumField = Login.driver.findElement(By.cssSelector("input[placeholder=\"0,00\"]"));
         sumField.sendKeys(amount);
     }
 
     /** Нажать на кнопку "Создать" **/
-    public void clickCreateButton(){
+    public static void clickCreateButton(){
         WebElement createPaymentButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]"));
         createPaymentButton.click();
     }
 
     /** Нажать на кнопку "Всё равно сохранить" **/
-    public void clickSaveButton(){
+    public static void clickSaveButton(){
         WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
         saveButton.click();
     }
 
     /** Создать платёж между своими счетами **/
-    public static void createPaymentBetweenAccounts(PaymentBetweenAccounts paymentForm, String amount){
-        paymentForm.selectPayer();
-        paymentForm.selectPayee();
-        paymentForm.typeSum(amount);
-        paymentForm.clickCreateButton();
-        paymentForm.clickSaveButton();
+    public static void createPaymentBetweenAccounts(String amount){
+        selectPayer();
+        selectPayee();
+        typeSum(amount);
+        clickCreateButton();
+        clickSaveButton();
     }
 }
