@@ -15,9 +15,9 @@ public class BudgetPayment {
     }
 
     /** Выбрать плательщика **/
-    public void selectPayer(String payerPartialName){
+    public void selectPayer(){
         WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
-        payerField.sendKeys(payerPartialName + ENTER);
+        payerField.sendKeys(ENTER);
     }
 
     /** Создать получателя **/
@@ -105,9 +105,9 @@ public class BudgetPayment {
     }
 
     /** Создать платёж в бюджет **/
-    public static void createBudgetPayment(BudgetPayment paymentForm, String amount, String payerPartialName, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin){
+    public static void createBudgetPayment(BudgetPayment paymentForm, String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin){
         paymentForm.typeSum(amount);
-        paymentForm.selectPayer(payerPartialName);
+        paymentForm.selectPayer();
         paymentForm.createPayee();
         paymentForm.selectPayerStatus();
         paymentForm.typeKbk(kbk);

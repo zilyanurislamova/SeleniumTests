@@ -1,30 +1,45 @@
 import org.openqa.selenium.*;
 
+import static org.openqa.selenium.Keys.DOWN;
+import static org.openqa.selenium.Keys.ENTER;
+
 public class PaymentBetweenAccounts {
+    /** Выбрать счёт списания **/
+    public void selectPayer(){
+        WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]"));
+        payerField.sendKeys(ENTER);
+    }
+
+    /** Выбрать счёт зачисления **/
+    public void selectPayee(){
+        WebElement payeeField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
+        payeeField.sendKeys(DOWN, ENTER);
+    }
+
     /** Ввести сумму **/
     public void typeSum(String amount){
-        WebElement sumField = Login.driver.findElement(By.xpath("//input[@placeholder=\"0,00\"]"));
+        WebElement sumField = Login.driver.findElement(By.cssSelector("input[placeholder=\"0,00\"]"));
         sumField.sendKeys(amount);
     }
 
-    /** Выбрать получателя **/
-    public void selectPayee(){
-        WebElement payeeField = Login.driver.findElement(By.xpath("//div[text()='Начните вводить наименование получателя или выберите из списка']"));
-        payeeField.click();
-        WebElement payeeOption = Login.driver.findElement(By.cssSelector("div[role='listbox'] div[title*='38000248069']"));
-        payeeOption.click();
+    /** Нажать на кнопку "Создать" **/
+    public void clickCreateButton(){
+        WebElement createPaymentButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]"));
+        createPaymentButton.click();
     }
 
-    /** Нажать кнопку "Создать" **/
-    public void clickCreateButton(){
-        WebElement createPaymentButton = Login.driver.findElement(By.xpath("//button[@data-analytics-label=\"action.create_payment\"]"));
-        createPaymentButton.click();
+    /** Нажать на кнопку "Всё равно сохранить" **/
+    public void clickSaveButton(){
+        WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
+        saveButton.click();
     }
 
     /** Создать платёж между своими счетами **/
     public static void createPaymentBetweenAccounts(PaymentBetweenAccounts paymentForm, String amount){
-        paymentForm.typeSum(amount);
+        paymentForm.selectPayer();
         paymentForm.selectPayee();
+        paymentForm.typeSum(amount);
         paymentForm.clickCreateButton();
+        paymentForm.clickSaveButton();
     }
 }
