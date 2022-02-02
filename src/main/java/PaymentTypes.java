@@ -1,4 +1,6 @@
-/** Типы платежей **/
+/**
+ * Типы платежей
+ **/
 public enum PaymentTypes {
     COMMERCIALPAYMENT,
     BUDGETPAYMENT,
