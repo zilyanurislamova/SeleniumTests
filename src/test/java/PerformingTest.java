@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PerformingTest {
     @Test
-    public void shouldPerformPayment(){
+    public void shouldPerformPayment() {
         SigningTest paymentToBeSigned = new SigningTest();
         paymentToBeSigned.shouldSignPayment();
         Performing.clickSendButton();
