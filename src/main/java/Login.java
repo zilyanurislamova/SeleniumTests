@@ -5,7 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import java.time.Duration;
 
 public class Login {
-    static WebDriver driver = new ChromeDriver();
+    public static WebDriver driver = new ChromeDriver();
 
     /**
      * Открыть страницу
