@@ -6,7 +6,7 @@ public class PaymentCreation {
     /**
      * Открыть раздел "Счета и платежи"
      **/
-    public static void openAccountsPaymentsPage() {
+    private static void openAccountsPaymentsPage() {
         WebElement accountsPaymentsOption = Login.driver.findElement(By.cssSelector("button[aria-label=\"Счета и платежи\"]"));
         accountsPaymentsOption.click();
     }
@@ -14,7 +14,7 @@ public class PaymentCreation {
     /**
      * Нажать на кнопку "Новый платёж"
      **/
-    public static void clickNewPaymentButton() {
+    private static void clickNewPaymentButton() {
         Login.driver.findElement(By.className("button-wrapper")).click();
         WebElement newPaymentButton = Login.driver.findElement(By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success"));
         newPaymentButton.click();
@@ -23,7 +23,7 @@ public class PaymentCreation {
     /**
      * Выбрать тип платежа
      **/
-    public static void selectPaymentType(PaymentTypes paymentType) {
+    private static void selectPaymentType(PaymentTypes paymentType) {
         switch (paymentType) {
             case COMMERCIALPAYMENT:
                 WebElement commercialPaymentOption = Login.driver.findElement(By.cssSelector("ul[role='menu'] li:first-child a"));

@@ -7,7 +7,7 @@ public class PaymentBetweenAccounts {
     /**
      * Выбрать счёт списания
      **/
-    public static void selectPayer() {
+    private static void selectPayer() {
         WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]"));
         payerField.sendKeys(ENTER);
     }
@@ -15,7 +15,7 @@ public class PaymentBetweenAccounts {
     /**
      * Выбрать счёт зачисления
      **/
-    public static void selectPayee() {
+    private static void selectPayee() {
         WebElement payeeField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
         payeeField.sendKeys(DOWN, ENTER);
     }
@@ -23,7 +23,7 @@ public class PaymentBetweenAccounts {
     /**
      * Ввести сумму
      **/
-    public static void typeSum(String amount) {
+    private static void typeSum(String amount) {
         WebElement sumField = Login.driver.findElement(By.cssSelector("input[placeholder=\"0,00\"]"));
         sumField.sendKeys(amount);
     }
@@ -31,7 +31,7 @@ public class PaymentBetweenAccounts {
     /**
      * Нажать на кнопку "Создать"
      **/
-    public static void clickCreateButton() {
+    private static void clickCreateButton() {
         WebElement createPaymentButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]"));
         createPaymentButton.click();
     }
@@ -39,7 +39,7 @@ public class PaymentBetweenAccounts {
     /**
      * Нажать на кнопку "Всё равно сохранить"
      **/
-    public static void clickSaveButton() {
+    private static void clickSaveButton() {
         WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
         saveButton.click();
     }

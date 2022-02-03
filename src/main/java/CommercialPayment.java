@@ -7,7 +7,7 @@ public class CommercialPayment {
     /**
      * Ввести сумму
      **/
-    public static void typeSum(String amount) {
+    private static void typeSum(String amount) {
         WebElement sumField = Login.driver.findElement(By.cssSelector("input[name=\"amount\"]"));
         sumField.sendKeys(amount);
     }
@@ -15,7 +15,7 @@ public class CommercialPayment {
     /**
      * Выбрать плательщика
      **/
-    public static void selectPayer(String payerPartialName) {
+    private static void selectPayer(String payerPartialName) {
         WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
         payerField.sendKeys(payerPartialName + ENTER);
     }
@@ -23,7 +23,7 @@ public class CommercialPayment {
     /**
      * Выбрать получателя
      **/
-    public static void selectPayee(String payeePartialName) {
+    private static void selectPayee(String payeePartialName) {
         WebElement payeeField = Login.driver.findElement(By.cssSelector("input[placeholder='Начните вводить наименование получателя или выберите из списка']"));
         payeeField.sendKeys(payeePartialName);
         WebElement payeeOption = Login.driver.findElement(By.cssSelector("div[role='listbox'] div div[title*='Контрагент 0']"));
@@ -33,7 +33,7 @@ public class CommercialPayment {
     /**
      * Нажать на кнопку "Создать"
      **/
-    public static void clickCreateButton() {
+    private static void clickCreateButton() {
         WebElement createPaymentButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]"));
         createPaymentButton.click();
     }
@@ -41,7 +41,7 @@ public class CommercialPayment {
     /**
      * Нажать на кнопку "Всё равно сохранить"
      **/
-    public static void clickSaveButton() {
+    private static void clickSaveButton() {
         WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
         saveButton.click();
     }

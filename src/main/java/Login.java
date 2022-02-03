@@ -10,7 +10,7 @@ public class Login {
     /**
      * Открыть страницу
      **/
-    public static void openPage(String url) {
+    private static void openPage(String url) {
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get(url);
@@ -19,7 +19,7 @@ public class Login {
     /**
      * Нажать на ссылку "Войти в демо-режим"
      **/
-    public static void clickDemoLink() {
+    private static void clickDemoLink() {
         driver.findElement(By.cssSelector("a[href='https://sbi.sberbank.ru:9444/ic/dcb/login.html?demoMode&version=3.0']")).click();
     }
 

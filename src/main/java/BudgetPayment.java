@@ -11,7 +11,7 @@ public class BudgetPayment {
     /**
      * Ввести сумму
      **/
-    public static void typeSum(String amount) {
+    private static void typeSum(String amount) {
         WebElement sumField = Login.driver.findElement(By.cssSelector("input[name=\"amount\"]"));
         sumField.sendKeys(amount);
     }
@@ -19,7 +19,7 @@ public class BudgetPayment {
     /**
      * Выбрать плательщика
      **/
-    public static void selectPayer() {
+    private static void selectPayer() {
         WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
         payerField.sendKeys(ENTER);
     }
@@ -27,7 +27,7 @@ public class BudgetPayment {
     /**
      * Выбрать статус плательщика
      **/
-    public static void selectPayerStatus() {
+    private static void selectPayerStatus() {
         WebElement payerStatusField = Login.driver.findElement(By.xpath("//span[text() = 'Выберите значение']"));
         payerStatusField.click();
         WebElement payerStatusOption = Login.driver.findElement(By.cssSelector("div[title*='01 - налогоплательщик']"));
@@ -37,7 +37,7 @@ public class BudgetPayment {
     /**
      * Ввести КБК
      **/
-    public static void typeKbk(String kbk) {
+    private static void typeKbk(String kbk) {
         WebElement kbkField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите значение КБК']"));
         kbkField.sendKeys(kbk);
     }
@@ -45,7 +45,7 @@ public class BudgetPayment {
     /**
      * Ввести ОКТМО
      **/
-    public static void typeOktmo(String oktmo) {
+    private static void typeOktmo(String oktmo) {
         WebElement kbkField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите значение ОКТМО']"));
         kbkField.sendKeys(oktmo);
     }
@@ -53,7 +53,7 @@ public class BudgetPayment {
     /**
      * Выбрать основание платежа
      **/
-    public static void selectPaymentReason(String paymentReason) {
+    private static void selectPaymentReason(String paymentReason) {
         WebElement paymentReasonField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant='react-select-6--value']"));
         paymentReasonField.sendKeys(paymentReason + ENTER);
     }
@@ -61,7 +61,7 @@ public class BudgetPayment {
     /**
      * Выбрать налоговый период
      **/
-    public static void selectTaxPeriod() {
+    private static void selectTaxPeriod() {
         WebElement taxPeriodList = Login.driver.findElement(By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']"));
         taxPeriodList.click();
         WebElement taxPeriodOption = Login.driver.findElement(By.cssSelector("div[title='0 - не определено']"));
@@ -71,7 +71,7 @@ public class BudgetPayment {
     /**
      * Ввести номер документа
      **/
-    public static void typeTaxDocNumber(String taxDocNumber) {
+    private static void typeTaxDocNumber(String taxDocNumber) {
         WebElement docNumberField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите номер документа']"));
         docNumberField.sendKeys(taxDocNumber);
     }
@@ -79,7 +79,7 @@ public class BudgetPayment {
     /**
      * Указать дату
      **/
-    public static void selectDate() {
+    private static void selectDate() {
         WebElement dateRadioButton = Login.driver.findElement(By.cssSelector("label[for='id-4-16']"));
         dateRadioButton.click();
     }
@@ -87,7 +87,7 @@ public class BudgetPayment {
     /**
      * Ввести УИН
      **/
-    public static void typeUin(String uin) {
+    private static void typeUin(String uin) {
         WebElement uinField = Login.driver.findElement(By.cssSelector("input[placeholder='УИН']"));
         uinField.sendKeys(uin);
     }
@@ -95,7 +95,7 @@ public class BudgetPayment {
     /**
      * Нажать на кнопку "Создать"
      **/
-    public static void clickCreateButton() {
+    private static void clickCreateButton() {
         WebElement createPaymentButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]"));
         createPaymentButton.click();
     }
@@ -103,7 +103,7 @@ public class BudgetPayment {
     /**
      * Нажать на кнопку "Всё равно сохранить"
      **/
-    public static void clickSaveButton() {
+    private static void clickSaveButton() {
         WebElement saveButton = Login.driver.findElement(By.xpath("//button[text()='Всё равно сохранить']"));
         saveButton.click();
     }
