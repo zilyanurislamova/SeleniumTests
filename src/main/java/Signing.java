@@ -7,7 +7,7 @@ public class Signing {
     /**
      * Нажать кнопку "Получить СМС-код"
      **/
-    public static void clickSignButton() {
+    private static void clickSignButton() {
         WebElement signButton = Login.driver.findElement(By.cssSelector("button[data-analytics-label='Get SMS Code']"));
         signButton.click();
     }
@@ -15,7 +15,7 @@ public class Signing {
     /**
      * Ввести код
      **/
-    public static void typeCode(String code) {
+    private static void typeCode(String code) {
         WebElement codeField = new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
                 until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("input[placeholder='СМС-код']")));
         codeField.sendKeys(code);
@@ -24,7 +24,7 @@ public class Signing {
     /**
      * Нажать на стрелку вправо
      **/
-    public static void clickArrowButton() {
+    private static void clickArrowButton() {
         WebElement arrowButton = new WebDriverWait(Login.driver, Duration.ofSeconds(3)).
                 until(ExpectedConditions.elementToBeClickable(By.cssSelector("button[aria-label='Отправить']")));
         arrowButton.click();
