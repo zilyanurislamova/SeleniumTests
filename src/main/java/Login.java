@@ -24,7 +24,7 @@ public class Login {
     }
 
     /**
-     * Залогиниться
+     * Войти в демо-режим
      **/
     public static void login(String url) {
         openPage(url);

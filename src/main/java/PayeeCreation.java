@@ -9,7 +9,7 @@ public class PayeeCreation {
     /**
      * Нажать на кнопку "Создать нового"
      **/
-    private static void clickCreateButton() {
+    private void clickCreateButton() {
         WebElement createPayeeButton = Login.driver.findElement(By.xpath("//button[text()='Создать нового']"));
         createPayeeButton.click();
     }
@@ -17,7 +17,7 @@ public class PayeeCreation {
     /**
      * Ввести наименование контрагента
      **/
-    private static void typePayeeName(String payeeName) {
+    private void typePayeeName(String payeeName) {
         WebElement payeeNameField = Login.driver.findElement(By.cssSelector("input[placeholder='Наименование контрагента']"));
         payeeNameField.sendKeys(payeeName);
     }
@@ -25,7 +25,7 @@ public class PayeeCreation {
     /**
      * Ввести ИНН
      **/
-    private static void typeInn(String inn) {
+    private void typeInn(String inn) {
         WebElement innField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите ИНН или КИО']"));
         innField.sendKeys(inn);
     }
@@ -33,7 +33,7 @@ public class PayeeCreation {
     /**
      * Ввести КПП
      **/
-    private static void typeKpp(String kpp) {
+    private void typeKpp(String kpp) {
         WebElement kppField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите КПП']"));
         kppField.sendKeys(kpp);
     }
@@ -41,7 +41,7 @@ public class PayeeCreation {
     /**
      * Ввести номер счёта
      **/
-    private static void typeAccountNumber(String accountNumber) {
+    private void typeAccountNumber(String accountNumber) {
         WebElement accountNumberField = Login.driver.findElement(By.cssSelector("input[name='accountNumber']"));
         accountNumberField.sendKeys(accountNumber);
     }
@@ -49,7 +49,7 @@ public class PayeeCreation {
     /**
      * Ввести БИК
      **/
-    private static void typeBic(String bic) {
+    private void typeBic(String bic) {
         WebElement bicField = Login.driver.findElement(By.cssSelector("input[placeholder='Введите несколько цифр']"));
         bicField.sendKeys(bic);
     }
@@ -57,7 +57,7 @@ public class PayeeCreation {
     /**
      * Нажать на кнопку "Добавить"
      **/
-    private static void clickSubmitButton() {
+    private void clickSubmitButton() {
         WebElement submitButton = Login.driver.findElement(By.xpath("//button[text()='Добавить']"));
         new WebDriverWait(Login.driver, Duration.ofSeconds(5)).
                 until(ExpectedConditions.elementToBeClickable(submitButton));
@@ -67,7 +67,7 @@ public class PayeeCreation {
     /**
      * Создать получателя
      **/
-    public static void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
+    public void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
         clickCreateButton();
         typePayeeName(payeeName);
         typeInn(inn);
