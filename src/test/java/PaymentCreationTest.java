@@ -1,6 +1,5 @@
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 
 import static org.junit.Assert.assertEquals;
 
@@ -13,8 +12,7 @@ public class PaymentCreationTest {
         paymentCreation.openPaymentCreationForm(PaymentTypes.COMMERCIALPAYMENT);
         CommercialPayment commercialPayment = new CommercialPayment();
         commercialPayment.createCommercialPayment("77,78", "счет", "контр");
-        WebElement successfulCreationNotification = Login.driver.findElement(By.cssSelector("h2"));
-        assertEquals("Платёжное поручение создано", successfulCreationNotification.getText());
+        assertEquals("Создан", Login.driver.findElement(By.cssSelector(".text-status")).getText());
         System.out.println("Платёж контрагенту успешно создан");
     }
 
@@ -26,8 +24,7 @@ public class PaymentCreationTest {
         payeeCreation.createPayee("БЮДЖЕТНАЯ ОРГАНИЗАЦИЯ", "7806000792", "780601001", "40101810523456789101", "041946000");
         BudgetPayment budgetPayment = new BudgetPayment();
         budgetPayment.createBudgetPayment("2022,02", "18210101011011000110", "19730000", "0", "108", "0");
-        WebElement successfulCreationNotification = Login.driver.findElement(By.cssSelector("h2"));
-        assertEquals("Платёжное поручение создано", successfulCreationNotification.getText());
+        assertEquals("Создан", Login.driver.findElement(By.cssSelector(".text-status")).getText());
         System.out.println("Платёж в бюджет успешно создан");
     }
 
@@ -37,8 +34,7 @@ public class PaymentCreationTest {
         paymentCreation.openPaymentCreationForm(PaymentTypes.BETWEENACCOUNTS);
         PaymentBetweenAccounts paymentBetweenAccounts = new PaymentBetweenAccounts();
         paymentBetweenAccounts.createPaymentBetweenAccounts("22988,50");
-        WebElement successfulCreationNotification = Login.driver.findElement(By.cssSelector("h2"));
-        assertEquals("Платёжное поручение создано", successfulCreationNotification.getText());
+        assertEquals("Создан", Login.driver.findElement(By.cssSelector(".text-status")).getText());
         System.out.println("Платёж между своими счетами успешно создан");
     }
 }
