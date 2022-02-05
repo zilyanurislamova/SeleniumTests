@@ -14,7 +14,7 @@ public class LoginTest {
         Login.login("https://sbi.sberbank.ru:9443/ic/dcb/?#/");
         new WebDriverWait(Login.driver, Duration.ofSeconds(10)).
                 until(ExpectedConditions.urlToBe("https://sbi.sberbank.ru:9444/ic/dcb/index.html#/main"));
-        assertEquals(Login.driver.getCurrentUrl(), "https://sbi.sberbank.ru:9444/ic/dcb/index.html#/main");
+        assertEquals("https://sbi.sberbank.ru:9444/ic/dcb/index.html#/main", Login.driver.getCurrentUrl());
         System.out.println("Выполнен вход в демо-режим");
     }
 }
