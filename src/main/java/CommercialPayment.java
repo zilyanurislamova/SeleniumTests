@@ -1,4 +1,7 @@
+import org.openqa.selenium.WebDriver;
+
 public class CommercialPayment extends PaymentCreation {
+    private WebDriver driver;
     /**
      * Создать платёж контрагенту
      **/

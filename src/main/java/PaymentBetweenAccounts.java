@@ -4,12 +4,13 @@ import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class PaymentBetweenAccounts extends PaymentCreation {
+    private WebDriver driver;
     /**
      * Выбрать счёт списания
      **/
     @Override
     public void selectPayer(String payeePartialName) {
-        WebElement payerField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]"));
+        WebElement payerField = driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]"));
         payerField.sendKeys(ENTER);
     }
 
@@ -18,7 +19,7 @@ public class PaymentBetweenAccounts extends PaymentCreation {
      **/
     @Override
     public void selectPayee(String payerPartialName) {
-        WebElement payeeField = Login.driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
+        WebElement payeeField = driver.findElement(By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]"));
         payeeField.sendKeys(DOWN, ENTER);
     }
 
@@ -27,7 +28,7 @@ public class PaymentBetweenAccounts extends PaymentCreation {
      **/
     @Override
     public void typeSum(String amount) {
-        WebElement sumField = Login.driver.findElement(By.cssSelector("input[placeholder=\"0,00\"]"));
+        WebElement sumField = driver.findElement(By.cssSelector("input[placeholder=\"0,00\"]"));
         sumField.sendKeys(amount);
     }
 
