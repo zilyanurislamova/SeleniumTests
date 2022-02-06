@@ -1,83 +1,87 @@
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class BudgetPayment extends PaymentCreation {
+public class BudgetPayment extends CommercialPayment {
     private WebDriver driver;
+    private By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
+    private By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
+    private By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
+    private By oktmoField = By.cssSelector("input[placeholder='Введите значение ОКТМО']");
+    private By paymentReasonField = By.cssSelector("input[aria-activedescendant='react-select-6--value']");
+    private By taxPeriodList = By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']");
+    private By taxPeriodOption = By.cssSelector("div[title='0 - не определено']");
+    private By taxDocNumberField = By.cssSelector("input[placeholder='Введите номер документа']");
+    private By dateRadioButton = By.cssSelector("label[for='id-4-16']");
+    private By uinField = By.cssSelector("input[placeholder='УИН']");
+
+    public BudgetPayment(WebDriver driver) {
+        super(driver);
+    }
+
     /**
      * Выбрать статус плательщика
      **/
     private void selectPayerStatus() {
-        WebElement payerStatusField = driver.findElement(By.xpath("//span[text() = 'Выберите значение']"));
-        payerStatusField.click();
-        WebElement payerStatusOption = driver.findElement(By.cssSelector("div[title*='01 - налогоплательщик']"));
-        payerStatusOption.click();
+        driver.findElement(payerStatusField).click();
+        driver.findElement(payerStatusOption).click();
     }
 
     /**
      * Ввести КБК
      **/
     private void typeKbk(String kbk) {
-        WebElement kbkField = driver.findElement(By.cssSelector("input[placeholder='Введите значение КБК']"));
-        kbkField.sendKeys(kbk);
+        driver.findElement(kbkField).sendKeys(kbk);
     }
 
     /**
      * Ввести ОКТМО
      **/
     private void typeOktmo(String oktmo) {
-        WebElement kbkField = driver.findElement(By.cssSelector("input[placeholder='Введите значение ОКТМО']"));
-        kbkField.sendKeys(oktmo);
+        driver.findElement(oktmoField).sendKeys(oktmo);
     }
 
     /**
      * Выбрать основание платежа
      **/
     private void selectPaymentReason(String paymentReason) {
-        WebElement paymentReasonField = driver.findElement(By.cssSelector("input[aria-activedescendant='react-select-6--value']"));
-        paymentReasonField.sendKeys(paymentReason + ENTER);
+        driver.findElement(paymentReasonField).sendKeys(paymentReason + ENTER);
     }
 
     /**
      * Выбрать налоговый период
      **/
     private void selectTaxPeriod() {
-        WebElement taxPeriodList = driver.findElement(By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']"));
-        taxPeriodList.click();
-        WebElement taxPeriodOption = driver.findElement(By.cssSelector("div[title='0 - не определено']"));
-        taxPeriodOption.click();
+        driver.findElement(taxPeriodList).click();
+        driver.findElement(taxPeriodOption).click();
     }
 
     /**
      * Ввести номер документа
      **/
     private void typeTaxDocNumber(String taxDocNumber) {
-        WebElement docNumberField = driver.findElement(By.cssSelector("input[placeholder='Введите номер документа']"));
-        docNumberField.sendKeys(taxDocNumber);
+        driver.findElement(taxDocNumberField).sendKeys(taxDocNumber);
     }
 
     /**
      * Указать дату
      **/
     private void selectDate() {
-        WebElement dateRadioButton = driver.findElement(By.cssSelector("label[for='id-4-16']"));
-        dateRadioButton.click();
+        driver.findElement(dateRadioButton).click();
     }
 
     /**
      * Ввести УИН
      **/
     private void typeUin(String uin) {
-        WebElement uinField = driver.findElement(By.cssSelector("input[placeholder='УИН']"));
-        uinField.sendKeys(uin);
+        driver.findElement(uinField).sendKeys(uin);
     }
 
     /**
      * Создать платёж в бюджет
      **/
-    public void createBudgetPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
+    public CreatedPayment createBudgetPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
         typeSum(amount);
         selectPayer("");
         selectPayerStatus();
@@ -90,5 +94,6 @@ public class BudgetPayment extends PaymentCreation {
         typeUin(uin);
         clickCreateButton();
         clickSaveButton();
+        return new CreatedPayment();
     }
 }
