@@ -3,12 +3,12 @@ import org.openqa.selenium.WebDriver;
 
 
 public class AccountsPaymentsPage {
-    private WebDriver driver;
-    private By buttonWrapper = By.className("button-wrapper");
-    private By newPaymentButton = By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success");
-    private By commercialPaymentOption = By.cssSelector("ul[role='menu'] li:first-child a");
-    private By budgetPaymentOption = By.cssSelector("ul[role='menu'] li:nth-child(3) a");
-    private By paymentBetweenAccountsOption = By.cssSelector("ul[role='menu'] li:nth-child(5) a");
+    private final WebDriver driver;
+    private final By buttonWrapper = By.className("button-wrapper");
+    private final By newPaymentButton = By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success");
+    private final By commercialPaymentOption = By.cssSelector("ul[role='menu'] li:first-child a");
+    private final By budgetPaymentOption = By.cssSelector("ul[role='menu'] li:nth-child(3) a");
+    private final By paymentBetweenAccountsOption = By.cssSelector("ul[role='menu'] li:nth-child(5) a");
 
     public AccountsPaymentsPage(WebDriver driver) {
         this.driver = driver;
@@ -25,17 +25,17 @@ public class AccountsPaymentsPage {
     /**
      * Выбрать тип платежа
      **/
-    private CommercialPayment selectPaymentType(PaymentTypes paymentType) {
+    private CommercialPaymentPage selectPaymentType(PaymentType paymentType) {
         switch (paymentType) {
             case COMMERCIALPAYMENT:
                 driver.findElement(commercialPaymentOption).click();
-                return new CommercialPayment(driver);
+                return new CommercialPaymentPage(driver);
             case BUDGETPAYMENT:
                 driver.findElement(budgetPaymentOption).click();
-                return new BudgetPayment(driver);
+                return new BudgetPaymentPage(driver);
             case BETWEENACCOUNTS:
                 driver.findElement(paymentBetweenAccountsOption).click();
-                return new PaymentBetweenAccounts(driver);
+                return new PaymentBetweenAccountsPage(driver);
         }
         return null;
     }
@@ -43,7 +43,7 @@ public class AccountsPaymentsPage {
     /**
      * Открыть форму создания платежа
      **/
-    public CommercialPayment openPaymentCreationForm(PaymentTypes paymentType) {
+    public CommercialPaymentPage openPaymentCreationPage(PaymentType paymentType) {
         clickNewPaymentButton();
         return selectPaymentType(paymentType);
     }

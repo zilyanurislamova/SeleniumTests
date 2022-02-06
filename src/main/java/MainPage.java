@@ -2,9 +2,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class MainPage {
-    private WebDriver driver;
-    private By demoAccountName = By.cssSelector("div[title='Иванов Иван Иванович']");
-    private By accountsPaymentsOption = By.cssSelector("button[aria-label=\"Счета и платежи\"]");
+    private final WebDriver driver;
+    private final By demoAccountName = By.cssSelector("div[title='Иванов Иван Иванович']");
+    private final By accountsPaymentsOption = By.cssSelector("button[aria-label=\"Счета и платежи\"]");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;

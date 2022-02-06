@@ -3,14 +3,15 @@ import org.openqa.selenium.*;
 import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
-public class PaymentBetweenAccounts extends CommercialPayment {
-    private WebDriver driver;
-    private By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
-    private By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
-    private By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
+public class PaymentBetweenAccountsPage extends CommercialPaymentPage {
+    private final WebDriver driver;
+    private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
+    private final By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
+    private final By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
 
-    public PaymentBetweenAccounts(WebDriver driver) {
+    public PaymentBetweenAccountsPage(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     /**
@@ -40,11 +41,12 @@ public class PaymentBetweenAccounts extends CommercialPayment {
     /**
      * Создать платёж между своими счетами
      **/
-    public void createPaymentBetweenAccounts(String amount) {
+    public CreatedPaymentPage createPaymentBetweenAccounts(String amount) {
         selectPayer("");
         selectPayee("");
         typeSum(amount);
         clickCreateButton();
         clickSaveButton();
+        return new CreatedPaymentPage(driver);
     }
 }

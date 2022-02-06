@@ -1,7 +1,7 @@
 /**
  * Типы платежей
  **/
-public enum PaymentTypes {
+public enum PaymentType {
     COMMERCIALPAYMENT,
     BUDGETPAYMENT,
     BETWEENACCOUNTS

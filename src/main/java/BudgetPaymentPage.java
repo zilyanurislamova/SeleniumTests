@@ -3,21 +3,22 @@ import org.openqa.selenium.WebDriver;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class BudgetPayment extends CommercialPayment {
-    private WebDriver driver;
-    private By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
-    private By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
-    private By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
-    private By oktmoField = By.cssSelector("input[placeholder='Введите значение ОКТМО']");
-    private By paymentReasonField = By.cssSelector("input[aria-activedescendant='react-select-6--value']");
-    private By taxPeriodList = By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']");
-    private By taxPeriodOption = By.cssSelector("div[title='0 - не определено']");
-    private By taxDocNumberField = By.cssSelector("input[placeholder='Введите номер документа']");
-    private By dateRadioButton = By.cssSelector("label[for='id-4-16']");
-    private By uinField = By.cssSelector("input[placeholder='УИН']");
+public class BudgetPaymentPage extends CommercialPaymentPage {
+    private final WebDriver driver;
+    private final By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
+    private final By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
+    private final By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
+    private final By oktmoField = By.cssSelector("input[placeholder='Введите значение ОКТМО']");
+    private final By paymentReasonField = By.cssSelector("input[aria-activedescendant='react-select-6--value']");
+    private final By taxPeriodList = By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']");
+    private final By taxPeriodOption = By.cssSelector("div[title='0 - не определено']");
+    private final By taxDocNumberField = By.cssSelector("input[placeholder='Введите номер документа']");
+    private final By dateRadioButton = By.cssSelector("label[for='id-4-16']");
+    private final By uinField = By.cssSelector("input[placeholder='УИН']");
 
-    public BudgetPayment(WebDriver driver) {
+    public BudgetPaymentPage(WebDriver driver) {
         super(driver);
+        this.driver = driver;
     }
 
     /**
@@ -81,7 +82,7 @@ public class BudgetPayment extends CommercialPayment {
     /**
      * Создать платёж в бюджет
      **/
-    public CreatedPayment createBudgetPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
+    public CreatedPaymentPage createBudgetPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
         typeSum(amount);
         selectPayer("");
         selectPayerStatus();
@@ -94,6 +95,6 @@ public class BudgetPayment extends CommercialPayment {
         typeUin(uin);
         clickCreateButton();
         clickSaveButton();
-        return new CreatedPayment();
+        return new CreatedPaymentPage(driver);
     }
 }
