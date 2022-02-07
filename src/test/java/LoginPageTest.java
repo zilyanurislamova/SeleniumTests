@@ -9,7 +9,8 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class LoginPageTest {
+@DisplayName("Логин")
+class LoginPageTest {
     WebDriver driver;
     LoginPage loginPage;
     MainPage mainPage;
@@ -34,5 +35,6 @@ public class LoginPageTest {
     @AfterEach
     void tearDown() {
         driver.close();
+        driver.quit();
     }
 }
