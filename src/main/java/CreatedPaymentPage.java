@@ -16,7 +16,7 @@ public class CreatedPaymentPage {
     public CreatedPaymentPage(WebDriver driver) {
         this.driver = driver;
         new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.textToBe(pageHeader, "Платёжное поручение"));
+                .until(ExpectedConditions.not(ExpectedConditions.urlContains("create")));
         if (!driver.findElement(pageHeader).getText().equals("Платёжное поручение")) {
             throw new IllegalStateException("This is not CreatedPaymentPage");
         }
