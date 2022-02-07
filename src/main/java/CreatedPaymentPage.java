@@ -7,7 +7,7 @@ import java.time.Duration;
 
 public class CreatedPaymentPage {
     private final WebDriver driver;
-    private final By pageHeader = By.cssSelector("h1");
+    private final By paymentStatus = By.cssSelector(".text-status");
     private final By signButton = By.cssSelector("button[data-analytics-label='Get SMS Code']");
     private final By codeField = By.cssSelector("input[placeholder='СМС-код']");
     private final By arrowButton = By.cssSelector("button[aria-label='Отправить']");
@@ -15,9 +15,7 @@ public class CreatedPaymentPage {
 
     public CreatedPaymentPage(WebDriver driver) {
         this.driver = driver;
-        new WebDriverWait(driver, Duration.ofSeconds(10))
-                .until(ExpectedConditions.textToBe(pageHeader, "Платёжное поручение"));
-        if (!driver.findElement(pageHeader).getText().equals("Платёжное поручение")) {
+        if (!driver.findElement(paymentStatus).getText().equals("Создан")) {
             throw new IllegalStateException("This is not CreatedPaymentPage");
         }
     }
