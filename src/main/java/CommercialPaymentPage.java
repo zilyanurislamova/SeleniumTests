@@ -4,7 +4,8 @@ import org.openqa.selenium.WebDriver;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class CommercialPaymentPage {
-    private final WebDriver driver;
+    protected WebDriver driver;
+    protected By pageHeader = By.cssSelector("h1");
     private final By sumField = By.cssSelector("input[name=\"amount\"]");
     private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
     private final By payeeField = By.cssSelector("input[placeholder='Начните вводить наименование получателя или выберите из списка']");
@@ -40,11 +41,11 @@ public class CommercialPaymentPage {
     }
 
     /**
-     * Нажать на кнопку "Создать нового"
+     * Нажать на кнопку "Создать нового" (контрагента)
      **/
-    public Payee clickCreatePayeeButton() {
+    public PayeeForm clickCreatePayeeButton() {
         driver.findElement(createPayeeButton).click();
-        return new Payee(driver);
+        return new PayeeForm(driver);
     }
 
     /**

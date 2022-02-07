@@ -4,14 +4,15 @@ import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class PaymentBetweenAccountsPage extends CommercialPaymentPage {
-    private final WebDriver driver;
     private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
     private final By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
     private final By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
 
     public PaymentBetweenAccountsPage(WebDriver driver) {
         super(driver);
-        this.driver = driver;
+        if (!driver.findElement(pageHeader).getText().equals("Перевод между своими счетами")) {
+            throw new IllegalStateException("This is not PaymentBetweenAccountsPage");
+        }
     }
 
     /**

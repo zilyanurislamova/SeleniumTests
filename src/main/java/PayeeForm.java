@@ -5,7 +5,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Payee {
+public class PayeeForm {
     private final WebDriver driver;
     private final By payeeNameField = By.cssSelector("input[placeholder='Наименование контрагента']");
     private final By innField = By.cssSelector("input[placeholder='Введите ИНН или КИО']");
@@ -14,7 +14,7 @@ public class Payee {
     private final By bicField = By.cssSelector("input[placeholder='Введите несколько цифр']");
     private final By submitButton = By.xpath("//button[text()='Добавить']");
 
-    public Payee(WebDriver driver) {
+    public PayeeForm(WebDriver driver) {
         this.driver = driver;
     }
 

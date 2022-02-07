@@ -4,6 +4,7 @@ import org.openqa.selenium.WebDriver;
 
 public class AccountsPaymentsPage {
     private final WebDriver driver;
+    private final By pageHeader = By.cssSelector("h1");
     private final By buttonWrapper = By.className("button-wrapper");
     private final By newPaymentButton = By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success");
     private final By commercialPaymentOption = By.cssSelector("ul[role='menu'] li:first-child a");
@@ -12,6 +13,9 @@ public class AccountsPaymentsPage {
 
     public AccountsPaymentsPage(WebDriver driver) {
         this.driver = driver;
+        if (!driver.findElement(pageHeader).getText().equals("Счета и платежи")) {
+            throw new IllegalStateException("This is not AccountsPaymentsPage");
+        }
     }
 
     /**
