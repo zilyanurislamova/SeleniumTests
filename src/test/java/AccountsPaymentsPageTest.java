@@ -7,7 +7,8 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AccountsPaymentsPageTest {
+@DisplayName("Создание платёжного поручения")
+class AccountsPaymentsPageTest {
     WebDriver driver;
     LoginPage loginPage;
     MainPage mainPage;
@@ -56,6 +57,7 @@ public class AccountsPaymentsPageTest {
     @AfterEach
     void tearDown() {
         driver.close();
+        driver.quit();
     }
 }
 
