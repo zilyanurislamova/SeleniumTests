@@ -7,9 +7,6 @@ import java.time.Duration;
 public class Login {
     public static WebDriver driver = new ChromeDriver();
 
-    public static void main(String[] args) {
-    }
-
     /**
      * Открыть страницу
      **/
