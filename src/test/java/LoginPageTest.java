@@ -34,7 +34,6 @@ class LoginPageTest {
 
     @AfterEach
     void tearDown() {
-        driver.close();
         driver.quit();
     }
 }

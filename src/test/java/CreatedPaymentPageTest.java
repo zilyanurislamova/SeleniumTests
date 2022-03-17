@@ -56,7 +56,6 @@ class CreatedPaymentPageTest {
 
     @AfterEach
     void tearDown() {
-        driver.close();
         driver.quit();
     }
 }
