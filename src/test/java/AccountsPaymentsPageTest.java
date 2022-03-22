@@ -27,6 +27,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Создание платежа контрагенту")
     void testCreateCommercialPayment() {
         CommercialPaymentPage commercialPaymentPage = accountsPaymentsPage.openPaymentCreationPage(PaymentType.COMMERCIALPAYMENT);
@@ -36,6 +37,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Создание платежа в бюджет")
     void testCreateBudgetPayment() {
         BudgetPaymentPage budgetPaymentPage = (BudgetPaymentPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BUDGETPAYMENT);
@@ -46,6 +48,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Создание платежа между своими счетами")
     void testCreatePaymentBetweenAccounts() {
         PaymentBetweenAccountsPage paymentBetweenAccountsPage = (PaymentBetweenAccountsPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);

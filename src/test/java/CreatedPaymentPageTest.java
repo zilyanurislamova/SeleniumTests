@@ -1,7 +1,4 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -19,8 +16,10 @@ class CreatedPaymentPageTest {
     PaymentBetweenAccountsPage paymentBetweenAccountsPage;
     CreatedPaymentPage createdPaymentPage;
     By paymentStatus = By.cssSelector(".text-status");
+    By successfulCreationNotification = By.xpath("//h2[text()='Платёжное поручение создано']");
     By successfulSigningNotification = By.xpath("//h2[text()='Платёжное поручение подписано']");
     By successfulSendingNotification = By.xpath("//h2[text()='Платёжное поручение отправлено']");
+    By notification = By.className("notification-text");
     String output;
 
     @BeforeEach
@@ -37,6 +36,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Подписание платёжного поручения")
     void testSignPayment() {
         createdPaymentPage.signPayment("11111");
@@ -46,6 +46,27 @@ class CreatedPaymentPageTest {
     }
 
     @Test
+    @Tag("smoke")
+    @DisplayName("Снятие подписи с платёжного поручения")
+    void testRemoveSign() {
+        createdPaymentPage.signPayment("11111").removeSign();
+        output = driver.findElement(successfulCreationNotification).getText();
+        assertEquals("Создан", driver.findElement(paymentStatus).getText());
+        System.out.println(output);
+    }
+
+    @Test
+    @Tag("negative")
+    @DisplayName("Подписание платёжного поручения некорректным кодом")
+    void testSignPaymentWithInvalidCode() {
+        createdPaymentPage.signPayment("12345");
+        output = driver.findElement(notification).getText();
+        assertEquals("Создан", driver.findElement(paymentStatus).getText());
+        System.out.println(output);
+    }
+
+    @Test
+    @Tag("smoke")
     @DisplayName("Отправка платёжного поручения на исполнение")
     void testPerformPayment() {
         createdPaymentPage.signPayment("11111").clickSendButton();
