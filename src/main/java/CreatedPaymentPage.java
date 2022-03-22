@@ -12,6 +12,8 @@ public class CreatedPaymentPage {
     private final By codeField = By.cssSelector("input[placeholder='СМС-код']");
     private final By arrowButton = By.cssSelector("button[aria-label='Отправить']");
     private final By sendButton = By.cssSelector("button[data-test-id='Payments.Tracker.PaymentOrdersTracker__send--button']");
+    private final By removeSignButton = By.xpath("//button[text()='Снять подпись']");
+    private final By submitButton = By.xpath("//button[text()='Подтвердить']");
 
     public CreatedPaymentPage(WebDriver driver) {
         this.driver = driver;
@@ -50,6 +52,15 @@ public class CreatedPaymentPage {
         clickSignButton();
         typeCode(code);
         clickArrowButton();
+        return this;
+    }
+
+    /**
+     * Снять подпись
+     **/
+    public CreatedPaymentPage removeSign() {
+        driver.findElement(removeSignButton).click();
+        driver.findElement(submitButton).click();
         return this;
     }
 

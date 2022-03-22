@@ -24,6 +24,7 @@ class LoginPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Вход в демо-режим")
     void testLogin() {
         loginPage = new LoginPage(driver);
@@ -33,6 +34,7 @@ class LoginPageTest {
     }
 
     @Test
+    @Tag("smoke")
     @DisplayName("Выход")
     void testLogout() {
         loginPage = new LoginPage(driver);
@@ -42,6 +44,7 @@ class LoginPageTest {
     }
 
     @Test
+    @Tag("negative")
     @DisplayName("Вход в личный кабинет с невалидными данными")
     void testSignInWithInvalidCredentials() {
         loginPage = new LoginPage(driver);
