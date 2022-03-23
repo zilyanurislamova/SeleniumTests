@@ -1,17 +1,20 @@
+package pages.payments;
+
 import org.openqa.selenium.*;
+import pages.CreatedPaymentPage;
 
 import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
-public class PaymentBetweenAccountsPage extends CommercialPaymentPage {
+public class PaymentBetweenAccounts extends CommercialPayment {
     private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
     private final By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
     private final By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
 
-    public PaymentBetweenAccountsPage(WebDriver driver) {
+    public PaymentBetweenAccounts(WebDriver driver) {
         super(driver);
         if (!driver.findElement(pageHeader).getText().equals("Перевод между своими счетами")) {
-            throw new IllegalStateException("This is not PaymentBetweenAccountsPage");
+            throw new IllegalStateException("This is not PaymentBetweenAccounts");
         }
     }
 

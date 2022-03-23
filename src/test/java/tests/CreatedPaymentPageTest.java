@@ -1,7 +1,14 @@
+package tests;
+
+import tests.annotations.Regression;
+import tests.annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.*;
+import pages.enums.PaymentType;
+import pages.payments.PaymentBetweenAccounts;
 
 import java.time.Duration;
 
@@ -13,7 +20,7 @@ class CreatedPaymentPageTest {
     LoginPage loginPage;
     MainPage mainPage;
     AccountsPaymentsPage accountsPaymentsPage;
-    PaymentBetweenAccountsPage paymentBetweenAccountsPage;
+    PaymentBetweenAccounts paymentBetweenAccounts;
     CreatedPaymentPage createdPaymentPage;
     By paymentStatus = By.cssSelector(".text-status");
     By successfulCreationNotification = By.xpath("//h2[text()='Платёжное поручение создано']");
@@ -31,12 +38,12 @@ class CreatedPaymentPageTest {
         loginPage = new LoginPage(driver);
         mainPage = loginPage.login();
         accountsPaymentsPage = mainPage.openAccountsPaymentsPage();
-        paymentBetweenAccountsPage = (PaymentBetweenAccountsPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
-        createdPaymentPage = paymentBetweenAccountsPage.createPaymentBetweenAccounts("22988,50");
+        paymentBetweenAccounts = (PaymentBetweenAccounts) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
+        createdPaymentPage = paymentBetweenAccounts.createPaymentBetweenAccounts("22988,50");
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Подписание платёжного поручения")
     void testSignPayment() {
         createdPaymentPage.signPayment("11111");
@@ -46,7 +53,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Снятие подписи с платёжного поручения")
     void testRemoveSign() {
         createdPaymentPage.signPayment("11111").removeSign();
@@ -56,7 +63,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("negative")
+    @Regression
     @DisplayName("Подписание платёжного поручения некорректным кодом")
     void testSignPaymentWithInvalidCode() {
         createdPaymentPage.signPayment("12345");
@@ -66,7 +73,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Отправка платёжного поручения на исполнение")
     void testPerformPayment() {
         createdPaymentPage.signPayment("11111").clickSendButton();

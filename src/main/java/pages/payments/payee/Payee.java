@@ -1,3 +1,5 @@
+package pages.payments.payee;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -5,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class PayeeForm {
+public class Payee {
     private final WebDriver driver;
     private final By payeeNameField = By.cssSelector("input[placeholder='Наименование контрагента']");
     private final By innField = By.cssSelector("input[placeholder='Введите ИНН или КИО']");
@@ -14,7 +16,7 @@ public class PayeeForm {
     private final By bicField = By.cssSelector("input[placeholder='Введите несколько цифр']");
     private final By submitButton = By.xpath("//button[text()='Добавить']");
 
-    public PayeeForm(WebDriver driver) {
+    public Payee(WebDriver driver) {
         this.driver = driver;
     }
 
