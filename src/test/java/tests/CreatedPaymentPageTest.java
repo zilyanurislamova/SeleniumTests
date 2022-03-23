@@ -1,9 +1,14 @@
-import annotations.Regression;
-import annotations.Smoke;
+package tests;
+
+import tests.annotations.Regression;
+import tests.annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.*;
+import pages.enums.PaymentType;
+import pages.payments.PaymentBetweenAccounts;
 
 import java.time.Duration;
 
@@ -15,7 +20,7 @@ class CreatedPaymentPageTest {
     LoginPage loginPage;
     MainPage mainPage;
     AccountsPaymentsPage accountsPaymentsPage;
-    PaymentBetweenAccountsPage paymentBetweenAccountsPage;
+    PaymentBetweenAccounts paymentBetweenAccounts;
     CreatedPaymentPage createdPaymentPage;
     By paymentStatus = By.cssSelector(".text-status");
     By successfulCreationNotification = By.xpath("//h2[text()='Платёжное поручение создано']");
@@ -33,8 +38,8 @@ class CreatedPaymentPageTest {
         loginPage = new LoginPage(driver);
         mainPage = loginPage.login();
         accountsPaymentsPage = mainPage.openAccountsPaymentsPage();
-        paymentBetweenAccountsPage = (PaymentBetweenAccountsPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
-        createdPaymentPage = paymentBetweenAccountsPage.createPaymentBetweenAccounts("22988,50");
+        paymentBetweenAccounts = (PaymentBetweenAccounts) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
+        createdPaymentPage = paymentBetweenAccounts.createPaymentBetweenAccounts("22988,50");
     }
 
     @Test

@@ -1,9 +1,13 @@
+package pages.payments;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.CreatedPaymentPage;
+import pages.payments.payee.Payee;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class CommercialPaymentPage {
+public class CommercialPayment {
     protected WebDriver driver;
     protected By pageHeader = By.cssSelector("h1");
     private final By sumField = By.cssSelector("input[name=\"amount\"]");
@@ -14,7 +18,7 @@ public class CommercialPaymentPage {
     private final By createPaymentButton = By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]");
     private final By saveButton = By.xpath("//button[text()='Всё равно сохранить']");
 
-    public CommercialPaymentPage(WebDriver driver) {
+    public CommercialPayment(WebDriver driver) {
         this.driver = driver;
     }
 
@@ -43,9 +47,9 @@ public class CommercialPaymentPage {
     /**
      * Нажать на кнопку "Создать нового" (контрагента)
      **/
-    public PayeeForm clickCreatePayeeButton() {
+    public Payee clickCreatePayeeButton() {
         driver.findElement(createPayeeButton).click();
-        return new PayeeForm(driver);
+        return new Payee(driver);
     }
 
     /**

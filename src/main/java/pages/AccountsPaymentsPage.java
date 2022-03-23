@@ -1,5 +1,11 @@
+package pages;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.enums.PaymentType;
+import pages.payments.BudgetPayment;
+import pages.payments.CommercialPayment;
+import pages.payments.PaymentBetweenAccounts;
 
 
 public class AccountsPaymentsPage {
@@ -29,17 +35,17 @@ public class AccountsPaymentsPage {
     /**
      * Выбрать тип платежа
      **/
-    private CommercialPaymentPage selectPaymentType(PaymentType paymentType) {
+    private CommercialPayment selectPaymentType(PaymentType paymentType) {
         switch (paymentType) {
             case COMMERCIALPAYMENT:
                 driver.findElement(commercialPaymentOption).click();
-                return new CommercialPaymentPage(driver);
+                return new CommercialPayment(driver);
             case BUDGETPAYMENT:
                 driver.findElement(budgetPaymentOption).click();
-                return new BudgetPaymentPage(driver);
+                return new BudgetPayment(driver);
             case BETWEENACCOUNTS:
                 driver.findElement(paymentBetweenAccountsOption).click();
-                return new PaymentBetweenAccountsPage(driver);
+                return new PaymentBetweenAccounts(driver);
         }
         return null;
     }
@@ -47,7 +53,7 @@ public class AccountsPaymentsPage {
     /**
      * Открыть форму создания платежа
      **/
-    public CommercialPaymentPage openPaymentCreationPage(PaymentType paymentType) {
+    public CommercialPayment openPaymentCreationPage(PaymentType paymentType) {
         clickNewPaymentButton();
         return selectPaymentType(paymentType);
     }

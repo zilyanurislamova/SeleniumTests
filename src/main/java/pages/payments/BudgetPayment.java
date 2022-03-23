@@ -1,9 +1,12 @@
+package pages.payments;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import pages.CreatedPaymentPage;
 
 import static org.openqa.selenium.Keys.ENTER;
 
-public class BudgetPaymentPage extends CommercialPaymentPage {
+public class BudgetPayment extends CommercialPayment {
     private final By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
     private final By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
     private final By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
@@ -15,10 +18,10 @@ public class BudgetPaymentPage extends CommercialPaymentPage {
     private final By dateRadioButton = By.cssSelector("label[for='id-4-16']");
     private final By uinField = By.cssSelector("input[placeholder='УИН']");
 
-    public BudgetPaymentPage(WebDriver driver) {
+    public BudgetPayment(WebDriver driver) {
         super(driver);
         if (!driver.findElement(pageHeader).getText().equals("Рублёвый платёж в бюджет")) {
-            throw new IllegalStateException("This is not BudgetPaymentPage");
+            throw new IllegalStateException("This is not BudgetPayment");
         }
     }
 

@@ -1,10 +1,14 @@
-import annotations.Regression;
-import annotations.Smoke;
+package tests;
+
+import tests.annotations.Regression;
+import tests.annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import pages.LoginPage;
+import pages.MainPage;
 
 import java.time.Duration;
 
