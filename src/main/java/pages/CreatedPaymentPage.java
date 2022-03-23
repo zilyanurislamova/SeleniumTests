@@ -4,11 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pages.enums.PaymentType;
+import pages.payments.BudgetPayment;
+import pages.payments.CommercialPayment;
+import pages.payments.PaymentBetweenAccounts;
 
 import java.time.Duration;
 
 public class CreatedPaymentPage {
     private final WebDriver driver;
+    private final PaymentType paymentType;
     private final By paymentStatus = By.cssSelector(".text-status");
     private final By signButton = By.cssSelector("button[data-analytics-label='Get SMS Code']");
     private final By codeField = By.cssSelector("input[placeholder='СМС-код']");
@@ -16,12 +21,71 @@ public class CreatedPaymentPage {
     private final By sendButton = By.cssSelector("button[data-test-id='Payments.Tracker.PaymentOrdersTracker__send--button']");
     private final By removeSignButton = By.xpath("//button[text()='Снять подпись']");
     private final By submitButton = By.xpath("//button[text()='Подтвердить']");
+    private final By editAndCopyButtons = By.cssSelector(".col-xs-6.text-right.actions div button");
+    private final By copyOptions = By.cssSelector(".modal-body div button");
+    private final By reloadButton = By.xpath("//button[text()='Попробуйте ещё раз']");
 
-    public CreatedPaymentPage(WebDriver driver) {
+    public CreatedPaymentPage(WebDriver driver, PaymentType paymentType) {
         this.driver = driver;
+        this.paymentType = paymentType;
         if (!driver.findElement(paymentStatus).getText().equals("Создан")) {
             throw new IllegalStateException("This is not CreatedPaymentPage");
         }
+    }
+
+    public PaymentType getPaymentType() {
+        return this.paymentType;
+    }
+
+    /**
+     * Подписать
+     **/
+    public CreatedPaymentPage signPayment(String code) {
+        clickSignButton();
+        typeCode(code);
+        clickArrowButton();
+        return this;
+    }
+
+    /**
+     * Снять подпись
+     **/
+    public CreatedPaymentPage removeSign() {
+        driver.findElement(removeSignButton).click();
+        driver.findElement(submitButton).click();
+        return this;
+    }
+
+    /**
+     * Отправить в банк
+     **/
+    public void sendPayment() {
+        driver.findElement(sendButton).click();
+    }
+
+    /**
+     * Изменить
+     **/
+    public CommercialPayment clickEditButton() {
+        driver.findElements(editAndCopyButtons).get(0).click();
+        driver.findElement(reloadButton).click();
+        switch (getPaymentType()){
+            case COMMERCIALPAYMENT:
+                return new CommercialPayment(driver);
+            case BUDGETPAYMENT:
+                return new BudgetPayment(driver);
+            case BETWEENACCOUNTS:
+                return new PaymentBetweenAccounts(driver);
+        }
+        return null;
+    }
+
+    /**
+     * Скопировать
+     **/
+    public void copyPayment() {
+        driver.findElements(editAndCopyButtons).get(1).click();
+        driver.findElements(copyOptions).get(0).click();
     }
 
     /**
@@ -45,31 +109,5 @@ public class CreatedPaymentPage {
     private void clickArrowButton() {
         new WebDriverWait(driver, Duration.ofSeconds(3)).
                 until(ExpectedConditions.elementToBeClickable(arrowButton)).click();
-    }
-
-    /**
-     * Подписать платёжку
-     **/
-    public CreatedPaymentPage signPayment(String code) {
-        clickSignButton();
-        typeCode(code);
-        clickArrowButton();
-        return this;
-    }
-
-    /**
-     * Снять подпись
-     **/
-    public CreatedPaymentPage removeSign() {
-        driver.findElement(removeSignButton).click();
-        driver.findElement(submitButton).click();
-        return this;
-    }
-
-    /**
-     * Нажать на кнопку "Отправить в банк"
-     **/
-    public void clickSendButton() {
-        driver.findElement(sendButton).click();
     }
 }

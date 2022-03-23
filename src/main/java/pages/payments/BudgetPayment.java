@@ -3,10 +3,12 @@ package pages.payments;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.CreatedPaymentPage;
+import pages.enums.PaymentType;
 
 import static org.openqa.selenium.Keys.ENTER;
 
 public class BudgetPayment extends CommercialPayment {
+    private final PaymentType paymentType = PaymentType.BUDGETPAYMENT;
     private final By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
     private final By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
     private final By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
@@ -23,6 +25,25 @@ public class BudgetPayment extends CommercialPayment {
         if (!driver.findElement(pageHeader).getText().equals("Рублёвый платёж в бюджет")) {
             throw new IllegalStateException("This is not BudgetPayment");
         }
+    }
+
+    /**
+     * Создать платёж в бюджет
+     **/
+    public CreatedPaymentPage createPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
+        typeSum(amount);
+        selectPayer("");
+        selectPayerStatus();
+        typeKbk(kbk);
+        typeOktmo(oktmo);
+        selectPaymentReason(paymentReason);
+        selectTaxPeriod();
+        typeTaxDocNumber(taxDocNumber);
+        selectDate();
+        typeUin(uin);
+        clickCreateButton();
+        clickSaveButton();
+        return new CreatedPaymentPage(driver, paymentType);
     }
 
     /**
@@ -81,24 +102,5 @@ public class BudgetPayment extends CommercialPayment {
      **/
     private void typeUin(String uin) {
         driver.findElement(uinField).sendKeys(uin);
-    }
-
-    /**
-     * Создать платёж в бюджет
-     **/
-    public CreatedPaymentPage createBudgetPayment(String amount, String kbk, String oktmo, String paymentReason, String taxDocNumber, String uin) {
-        typeSum(amount);
-        selectPayer("");
-        selectPayerStatus();
-        typeKbk(kbk);
-        typeOktmo(oktmo);
-        selectPaymentReason(paymentReason);
-        selectTaxPeriod();
-        typeTaxDocNumber(taxDocNumber);
-        selectDate();
-        typeUin(uin);
-        clickCreateButton();
-        clickSaveButton();
-        return new CreatedPaymentPage(driver);
     }
 }

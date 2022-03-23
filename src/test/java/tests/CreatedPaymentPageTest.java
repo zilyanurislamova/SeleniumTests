@@ -39,7 +39,7 @@ class CreatedPaymentPageTest {
         mainPage = loginPage.login();
         accountsPaymentsPage = mainPage.openAccountsPaymentsPage();
         paymentBetweenAccounts = (PaymentBetweenAccounts) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
-        createdPaymentPage = paymentBetweenAccounts.createPaymentBetweenAccounts("22988,50");
+        createdPaymentPage = paymentBetweenAccounts.createPayment("22988,50");
     }
 
     @Test
@@ -76,10 +76,24 @@ class CreatedPaymentPageTest {
     @Smoke
     @DisplayName("Отправка платёжного поручения на исполнение")
     void testPerformPayment() {
-        createdPaymentPage.signPayment("11111").clickSendButton();
+        createdPaymentPage.signPayment("11111").sendPayment();
         output = driver.findElement(successfulSendingNotification).getText();
         assertEquals("Доставлен", driver.findElement(paymentStatus).getText());
         System.out.println(output);
+    }
+
+    @Test
+    @Smoke
+    @DisplayName("Копирование платёжного поручения")
+    void testCopyPayment() {
+        createdPaymentPage.copyPayment();
+    }
+
+    @Test
+    @Smoke
+    @DisplayName("Редактирование платёжного поручения")
+    void testEditPayment() {
+        createdPaymentPage.clickEditButton().editPayment("45977");
     }
 
     @AfterEach

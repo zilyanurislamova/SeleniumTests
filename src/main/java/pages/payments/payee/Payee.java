@@ -21,6 +21,18 @@ public class Payee {
     }
 
     /**
+     * Создать получателя
+     **/
+    public void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
+        typePayeeName(payeeName);
+        typeInn(inn);
+        typeKpp(kpp);
+        typeAccountNumber(accountNumber);
+        typeBic(bic);
+        clickSubmitButton();
+    }
+
+    /**
      * Ввести наименование контрагента
      **/
     private void typePayeeName(String payeeName) {
@@ -61,17 +73,5 @@ public class Payee {
     private void clickSubmitButton() {
         new WebDriverWait(driver, Duration.ofSeconds(5)).
                 until(ExpectedConditions.elementToBeClickable(submitButton)).click();
-    }
-
-    /**
-     * Создать получателя
-     **/
-    public void createPayee(String payeeName, String inn, String kpp, String accountNumber, String bic) {
-        typePayeeName(payeeName);
-        typeInn(inn);
-        typeKpp(kpp);
-        typeAccountNumber(accountNumber);
-        typeBic(bic);
-        clickSubmitButton();
     }
 }

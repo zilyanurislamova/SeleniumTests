@@ -1,21 +1,48 @@
 package pages.payments;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import pages.CreatedPaymentPage;
+import pages.enums.PaymentType;
 
 import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class PaymentBetweenAccounts extends CommercialPayment {
-    private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
-    private final By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
-    private final By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
+    private final PaymentType paymentType = PaymentType.BETWEENACCOUNTS;
+    private final By payerField = By.cssSelector("input[aria-activedescendant='react-select-4--value']");
+    private final By payeeField = By.cssSelector("input[aria-activedescendant='react-select-5--value']");
+    private final By sumField = By.cssSelector("input[placeholder='0,00']");
 
     public PaymentBetweenAccounts(WebDriver driver) {
         super(driver);
         if (!driver.findElement(pageHeader).getText().equals("Перевод между своими счетами")) {
             throw new IllegalStateException("This is not PaymentBetweenAccounts");
         }
+    }
+
+    /**
+     * Создать платёж между своими счетами
+     **/
+    public CreatedPaymentPage createPayment(String amount) {
+        selectPayer("");
+        selectPayee("");
+        typeSum(amount);
+        clickCreateButton();
+        clickSaveButton();
+        return new CreatedPaymentPage(driver, paymentType);
+    }
+
+    /**
+     * Редактировать платёжное поручение
+     **/
+    @Override
+    public CreatedPaymentPage editPayment(String amount) {
+        driver.findElement(sumField).clear();
+        typeSum(amount);
+        clickSaveEditsButton();
+        clickSaveButton();
+        return new CreatedPaymentPage(driver, paymentType);
     }
 
     /**
@@ -40,17 +67,5 @@ public class PaymentBetweenAccounts extends CommercialPayment {
     @Override
     public void typeSum(String amount) {
         driver.findElement(sumField).sendKeys(amount);
-    }
-
-    /**
-     * Создать платёж между своими счетами
-     **/
-    public CreatedPaymentPage createPaymentBetweenAccounts(String amount) {
-        selectPayer("");
-        selectPayee("");
-        typeSum(amount);
-        clickCreateButton();
-        clickSaveButton();
-        return new CreatedPaymentPage(driver);
     }
 }
