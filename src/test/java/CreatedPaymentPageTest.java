@@ -1,3 +1,5 @@
+import annotations.Regression;
+import annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +38,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Подписание платёжного поручения")
     void testSignPayment() {
         createdPaymentPage.signPayment("11111");
@@ -46,7 +48,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Снятие подписи с платёжного поручения")
     void testRemoveSign() {
         createdPaymentPage.signPayment("11111").removeSign();
@@ -56,7 +58,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("negative")
+    @Regression
     @DisplayName("Подписание платёжного поручения некорректным кодом")
     void testSignPaymentWithInvalidCode() {
         createdPaymentPage.signPayment("12345");
@@ -66,7 +68,7 @@ class CreatedPaymentPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Отправка платёжного поручения на исполнение")
     void testPerformPayment() {
         createdPaymentPage.signPayment("11111").clickSendButton();

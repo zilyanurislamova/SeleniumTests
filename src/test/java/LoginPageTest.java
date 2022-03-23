@@ -1,3 +1,5 @@
+import annotations.Regression;
+import annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -24,7 +26,7 @@ class LoginPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Вход в демо-режим")
     void testLogin() {
         loginPage = new LoginPage(driver);
@@ -34,7 +36,7 @@ class LoginPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Выход")
     void testLogout() {
         loginPage = new LoginPage(driver);
@@ -44,7 +46,7 @@ class LoginPageTest {
     }
 
     @Test
-    @Tag("negative")
+    @Regression
     @DisplayName("Вход в личный кабинет с невалидными данными")
     void testSignInWithInvalidCredentials() {
         loginPage = new LoginPage(driver);

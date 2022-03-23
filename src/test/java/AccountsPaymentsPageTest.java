@@ -1,3 +1,4 @@
+import annotations.Smoke;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -27,7 +28,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Создание платежа контрагенту")
     void testCreateCommercialPayment() {
         CommercialPaymentPage commercialPaymentPage = accountsPaymentsPage.openPaymentCreationPage(PaymentType.COMMERCIALPAYMENT);
@@ -37,7 +38,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Создание платежа в бюджет")
     void testCreateBudgetPayment() {
         BudgetPaymentPage budgetPaymentPage = (BudgetPaymentPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BUDGETPAYMENT);
@@ -48,7 +49,7 @@ class AccountsPaymentsPageTest {
     }
 
     @Test
-    @Tag("smoke")
+    @Smoke
     @DisplayName("Создание платежа между своими счетами")
     void testCreatePaymentBetweenAccounts() {
         PaymentBetweenAccountsPage paymentBetweenAccountsPage = (PaymentBetweenAccountsPage) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
