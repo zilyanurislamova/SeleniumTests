@@ -11,9 +11,9 @@ import static org.openqa.selenium.Keys.ENTER;
 public class CommercialPayment {
     protected WebDriver driver;
     protected By pageHeader = By.cssSelector("h1");
-    private final By sumField = By.cssSelector("input[name='amount']");
-    private final By payerField = By.cssSelector("input[aria-activedescendant='react-select-5--value']");
-    private final By payeeField = By.cssSelector("input[placeholder='Начните вводить наименование получателя или выберите из списка']");
+    protected By payerField = By.cssSelector("input[aria-activedescendant]");
+    private final By sumField = By.cssSelector("input[placeholder='0,00']");
+    private final By payeeField = By.cssSelector("input[placeholder*='наименование получателя']");
     private final By payeeOption = By.cssSelector("div[role='listbox'] div div[title*='Контрагент 0']");
     private final By createPayeeButton = By.xpath("//button[text()='Создать нового']");
     private final By createPaymentButton = By.cssSelector("button[data-analytics-label='Action.CREATE']");
@@ -28,10 +28,10 @@ public class CommercialPayment {
     /**
      * Создать платёж контрагенту
      **/
-    public CreatedPaymentPage createPayment(String amount, String payerPartialName, String payeePartialName) {
+    public CreatedPaymentPage createPayment(String amount, String payerName, String payeeName) {
         typeSum(amount);
-        selectPayer(payerPartialName);
-        selectPayee(payeePartialName);
+        selectPayer(payerName);
+        selectPayee(payeeName);
         clickCreateButton();
         clickSaveButton();
         return new CreatedPaymentPage(driver, paymentType);
@@ -58,15 +58,15 @@ public class CommercialPayment {
     /**
      * Выбрать плательщика
      **/
-    public void selectPayer(String payerPartialName) {
-        driver.findElement(payerField).sendKeys(payerPartialName + ENTER);
+    public void selectPayer(String payerName) {
+        driver.findElement(payerField).sendKeys(payerName + ENTER);
     }
 
     /**
      * Выбрать получателя
      **/
-    public void selectPayee(String payeePartialName) {
-        driver.findElement(payeeField).sendKeys(payeePartialName);
+    public void selectPayee(String payeeName) {
+        driver.findElement(payeeField).sendKeys(payeeName);
         driver.findElement(payeeOption).click();
     }
 

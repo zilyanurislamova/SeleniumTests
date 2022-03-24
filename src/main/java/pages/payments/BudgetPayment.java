@@ -9,15 +9,15 @@ import static org.openqa.selenium.Keys.ENTER;
 
 public class BudgetPayment extends CommercialPayment {
     private final PaymentType paymentType = PaymentType.BUDGETPAYMENT;
-    private final By payerStatusField = By.xpath("//span[text() = 'Выберите значение']");
+    private final By payerStatusField = By.xpath("//span[text()='Выберите значение']");
     private final By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
-    private final By kbkField = By.cssSelector("input[placeholder='Введите значение КБК']");
-    private final By oktmoField = By.cssSelector("input[placeholder='Введите значение ОКТМО']");
-    private final By paymentReasonField = By.cssSelector("input[aria-activedescendant='react-select-6--value']");
+    private final By kbkField = By.cssSelector("input[placeholder*='КБК']");
+    private final By oktmoField = By.cssSelector("input[placeholder*='ОКТМО']");
+    private final By paymentReasonField = payerField;
     private final By taxPeriodList = By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']");
     private final By taxPeriodOption = By.cssSelector("div[title='0 - не определено']");
     private final By taxDocNumberField = By.cssSelector("input[placeholder='Введите номер документа']");
-    private final By dateRadioButton = By.cssSelector("label[for='id-4-16']");
+    private final By dateRadioButton = By.cssSelector("label[for*='id']");
     private final By uinField = By.cssSelector("input[placeholder='УИН']");
 
     public BudgetPayment(WebDriver driver) {
@@ -72,7 +72,7 @@ public class BudgetPayment extends CommercialPayment {
      * Выбрать основание платежа
      **/
     private void selectPaymentReason(String paymentReason) {
-        driver.findElement(paymentReasonField).sendKeys(paymentReason + ENTER);
+        driver.findElements(paymentReasonField).get(2).sendKeys(paymentReason + ENTER);
     }
 
     /**
@@ -94,7 +94,7 @@ public class BudgetPayment extends CommercialPayment {
      * Указать дату
      **/
     private void selectDate() {
-        driver.findElement(dateRadioButton).click();
+        driver.findElements(dateRadioButton).get(1).click();
     }
 
     /**

@@ -2,10 +2,13 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import pages.enums.PaymentType;
 import pages.payments.BudgetPayment;
 import pages.payments.CommercialPayment;
 import pages.payments.PaymentBetweenAccounts;
+
+import java.util.List;
 
 
 public class AccountsPaymentsPage {
@@ -13,9 +16,7 @@ public class AccountsPaymentsPage {
     private final By pageHeader = By.cssSelector("h1");
     private final By buttonWrapper = By.className("button-wrapper");
     private final By newPaymentButton = By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success");
-    private final By commercialPaymentOption = By.cssSelector("ul[role='menu'] li:first-child a");
-    private final By budgetPaymentOption = By.cssSelector("ul[role='menu'] li:nth-child(3) a");
-    private final By paymentBetweenAccountsOption = By.cssSelector("ul[role='menu'] li:nth-child(5) a");
+    private final By paymentOptions = By.cssSelector("ul[role='menu'] li a");
 
     public AccountsPaymentsPage(WebDriver driver) {
         this.driver = driver;
@@ -36,15 +37,16 @@ public class AccountsPaymentsPage {
      * Выбрать тип платежа
      **/
     private CommercialPayment selectPaymentType(PaymentType paymentType) {
+        List<WebElement> options = driver.findElements(paymentOptions);
         switch (paymentType) {
             case COMMERCIALPAYMENT:
-                driver.findElement(commercialPaymentOption).click();
+                options.get(0).click();
                 return new CommercialPayment(driver);
             case BUDGETPAYMENT:
-                driver.findElement(budgetPaymentOption).click();
+                options.get(2).click();
                 return new BudgetPayment(driver);
             case BETWEENACCOUNTS:
-                driver.findElement(paymentBetweenAccountsOption).click();
+                options.get(4).click();
                 return new PaymentBetweenAccounts(driver);
         }
         return null;
