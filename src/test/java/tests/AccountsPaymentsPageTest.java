@@ -39,9 +39,9 @@ class AccountsPaymentsPageTest {
     @DisplayName("Создание платежа контрагенту")
     void testCreateCommercialPayment() {
         CommercialPayment commercialPayment = accountsPaymentsPage.openPaymentCreationPage(PaymentType.COMMERCIALPAYMENT);
-        commercialPayment.createCommercialPayment("77,78", "счет", "контр");
+        commercialPayment.createPayment("77,78", "счет", "контр");
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
-        System.out.println("Платёж контрагенту успешно создан");
+        System.out.println("Платёж контрагенту создан");
     }
 
     @Test
@@ -50,9 +50,9 @@ class AccountsPaymentsPageTest {
     void testCreateBudgetPayment() {
         BudgetPayment budgetPayment = (BudgetPayment) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BUDGETPAYMENT);
         budgetPayment.clickCreatePayeeButton().createPayee("БЮДЖЕТНАЯ ОРГАНИЗАЦИЯ", "7806000792", "780601001", "40101810523456789101", "041946000");
-        budgetPayment.createBudgetPayment("2022,02", "18210101011011000110", "19730000", "0", "108", "0");
+        budgetPayment.createPayment("2022,02", "18210101011011000110", "19730000", "0", "108", "0");
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
-        System.out.println("Платёж в бюджет успешно создан");
+        System.out.println("Платёж в бюджет создан");
     }
 
     @Test
@@ -60,9 +60,9 @@ class AccountsPaymentsPageTest {
     @DisplayName("Создание платежа между своими счетами")
     void testCreatePaymentBetweenAccounts() {
         PaymentBetweenAccounts paymentBetweenAccounts = (PaymentBetweenAccounts) accountsPaymentsPage.openPaymentCreationPage(PaymentType.BETWEENACCOUNTS);
-        paymentBetweenAccounts.createPaymentBetweenAccounts("22988,50");
+        paymentBetweenAccounts.createPayment("22988,50");
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
-        System.out.println("Платёж между своими счетами успешно создан");
+        System.out.println("Платёж между своими счетами создан");
     }
 
     @AfterEach

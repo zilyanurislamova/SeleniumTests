@@ -3,6 +3,7 @@ package pages.payments;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import pages.CreatedPaymentPage;
+import pages.enums.PaymentType;
 import pages.payments.payee.Payee;
 
 import static org.openqa.selenium.Keys.ENTER;
@@ -10,16 +11,41 @@ import static org.openqa.selenium.Keys.ENTER;
 public class CommercialPayment {
     protected WebDriver driver;
     protected By pageHeader = By.cssSelector("h1");
-    private final By sumField = By.cssSelector("input[name=\"amount\"]");
-    private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
-    private final By payeeField = By.cssSelector("input[placeholder='Начните вводить наименование получателя или выберите из списка']");
+    protected By payerField = By.cssSelector("input[aria-activedescendant]");
+    private final By sumField = By.cssSelector("input[placeholder='0,00']");
+    private final By payeeField = By.cssSelector("input[placeholder*='наименование получателя']");
     private final By payeeOption = By.cssSelector("div[role='listbox'] div div[title*='Контрагент 0']");
     private final By createPayeeButton = By.xpath("//button[text()='Создать нового']");
-    private final By createPaymentButton = By.cssSelector("button[data-analytics-label=\"Action.CREATE\"]");
+    private final By createPaymentButton = By.cssSelector("button[data-analytics-label='Action.CREATE']");
     private final By saveButton = By.xpath("//button[text()='Всё равно сохранить']");
+    private final By saveEditsButton = By.cssSelector("button[data-analytics-label='Action.SAVE']");
+    private final PaymentType paymentType = PaymentType.COMMERCIALPAYMENT;
 
     public CommercialPayment(WebDriver driver) {
         this.driver = driver;
+    }
+
+    /**
+     * Создать платёж контрагенту
+     **/
+    public CreatedPaymentPage createPayment(String amount, String payerName, String payeeName) {
+        typeSum(amount);
+        selectPayer(payerName);
+        selectPayee(payeeName);
+        clickCreateButton();
+        clickSaveButton();
+        return new CreatedPaymentPage(driver, paymentType);
+    }
+
+    /**
+     * Редактировать платёжное поручение
+     **/
+    public CreatedPaymentPage editPayment(String amount) {
+        driver.findElement(sumField).clear();
+        typeSum(amount);
+        clickSaveEditsButton();
+        clickSaveButton();
+        return new CreatedPaymentPage(driver, paymentType);
     }
 
     /**
@@ -32,15 +58,15 @@ public class CommercialPayment {
     /**
      * Выбрать плательщика
      **/
-    public void selectPayer(String payerPartialName) {
-        driver.findElement(payerField).sendKeys(payerPartialName + ENTER);
+    public void selectPayer(String payerName) {
+        driver.findElement(payerField).sendKeys(payerName + ENTER);
     }
 
     /**
      * Выбрать получателя
      **/
-    public void selectPayee(String payeePartialName) {
-        driver.findElement(payeeField).sendKeys(payeePartialName);
+    public void selectPayee(String payeeName) {
+        driver.findElement(payeeField).sendKeys(payeeName);
         driver.findElement(payeeOption).click();
     }
 
@@ -67,14 +93,10 @@ public class CommercialPayment {
     }
 
     /**
-     * Создать платёж контрагенту
+     * Нажать на кнопку "Сохранить" (отредактированное)
      **/
-    public CreatedPaymentPage createCommercialPayment(String amount, String payerPartialName, String payeePartialName) {
-        typeSum(amount);
-        selectPayer(payerPartialName);
-        selectPayee(payeePartialName);
-        clickCreateButton();
-        clickSaveButton();
-        return new CreatedPaymentPage(driver);
+    public void clickSaveEditsButton() {
+        driver.findElement(saveEditsButton).click();
     }
 }
+

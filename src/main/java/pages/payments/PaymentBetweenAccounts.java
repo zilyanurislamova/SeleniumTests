@@ -1,15 +1,16 @@
 package pages.payments;
 
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import pages.CreatedPaymentPage;
+import pages.enums.PaymentType;
 
 import static org.openqa.selenium.Keys.DOWN;
 import static org.openqa.selenium.Keys.ENTER;
 
 public class PaymentBetweenAccounts extends CommercialPayment {
-    private final By payerField = By.cssSelector("input[aria-activedescendant=\"react-select-4--value\"]");
-    private final By payeeField = By.cssSelector("input[aria-activedescendant=\"react-select-5--value\"]");
-    private final By sumField = By.cssSelector("input[placeholder=\"0,00\"]");
+    private final PaymentType paymentType = PaymentType.BETWEENACCOUNTS;
+    private final By payeeField = payerField;
 
     public PaymentBetweenAccounts(WebDriver driver) {
         super(driver);
@@ -19,38 +20,18 @@ public class PaymentBetweenAccounts extends CommercialPayment {
     }
 
     /**
-     * Выбрать счёт списания
+     * Создать платёж между своими счетами
      **/
-    @Override
-    public void selectPayer(String payeePartialName) {
-        driver.findElement(payerField).sendKeys(ENTER);
+    public CreatedPaymentPage createPayment(String amount) {
+        super.createPayment(amount, "", "");
+        return new CreatedPaymentPage(driver, paymentType);
     }
 
     /**
      * Выбрать счёт зачисления
      **/
     @Override
-    public void selectPayee(String payerPartialName) {
-        driver.findElement(payeeField).sendKeys(DOWN, ENTER);
-    }
-
-    /**
-     * Ввести сумму
-     **/
-    @Override
-    public void typeSum(String amount) {
-        driver.findElement(sumField).sendKeys(amount);
-    }
-
-    /**
-     * Создать платёж между своими счетами
-     **/
-    public CreatedPaymentPage createPaymentBetweenAccounts(String amount) {
-        selectPayer("");
-        selectPayee("");
-        typeSum(amount);
-        clickCreateButton();
-        clickSaveButton();
-        return new CreatedPaymentPage(driver);
+    public void selectPayee(String payeeName) {
+        driver.findElements(payeeField).get(1).sendKeys(DOWN, ENTER);
     }
 }
