@@ -1,11 +1,10 @@
 package tests;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import pages.AccountsPaymentsPage;
 import pages.CreatedPaymentPage;
@@ -17,8 +16,9 @@ import tests.annotations.Regression;
 import tests.annotations.Smoke;
 
 import java.time.Duration;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Подписание и отправка на исполнение")
 class CreatedPaymentPageTest {
@@ -28,12 +28,12 @@ class CreatedPaymentPageTest {
     AccountsPaymentsPage accountsPaymentsPage;
     PaymentBetweenAccounts paymentBetweenAccounts;
     CreatedPaymentPage createdPaymentPage;
-    By paymentStatus = By.cssSelector(".text-status");
-    By creationNotification = By.xpath("//h2[text()='Платёжное поручение создано']");
-    By signingNotification = By.xpath("//h2[text()='Платёжное поручение подписано']");
-    By sendingNotification = By.xpath("//h2[text()='Платёжное поручение отправлено']");
+    By paymentStatus = By.className("text-status");
+    By statusTracker = By.tagName("h2");
     By notification = By.className("notification-text");
-    String output;
+    By number = By.cssSelector("td.col-number");
+    By title = By.cssSelector("td[title]");
+    By amount = By.cssSelector("span.value");
 
     @BeforeEach
     void setUp() {
@@ -53,9 +53,8 @@ class CreatedPaymentPageTest {
     @DisplayName("Подписание платёжного поручения")
     void testSignPayment() {
         createdPaymentPage.signPayment("11111");
-        output = driver.findElement(signingNotification).getText();
         assertEquals("Подписан", driver.findElement(paymentStatus).getText());
-        System.out.println(output);
+        System.out.println(driver.findElement(statusTracker).getText());
     }
 
     @Test
@@ -63,19 +62,17 @@ class CreatedPaymentPageTest {
     @DisplayName("Снятие подписи с платёжного поручения")
     void testRemoveSign() {
         createdPaymentPage.signPayment("11111").removeSign();
-        output = driver.findElement(creationNotification).getText();
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
-        System.out.println(output);
+        System.out.println("Подпись удалена - " + driver.findElement(statusTracker).getText().toLowerCase());
     }
 
     @Test
     @Regression
     @DisplayName("Подписание платёжного поручения некорректным кодом")
     void testSignPaymentWithInvalidCode() {
-        createdPaymentPage.signPayment("12345");
-        output = driver.findElement(notification).getText();
+        assertThrows(TimeoutException.class, () -> createdPaymentPage.signPayment("12345"));
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
-        System.out.println(output);
+        System.out.println(driver.findElement(notification).getText());
     }
 
     @Test
@@ -83,9 +80,8 @@ class CreatedPaymentPageTest {
     @DisplayName("Отправка платёжного поручения на исполнение")
     void testPerformPayment() {
         createdPaymentPage.signPayment("11111").sendPayment();
-        output = driver.findElement(sendingNotification).getText();
         assertEquals("Доставлен", driver.findElement(paymentStatus).getText());
-        System.out.println(output);
+        System.out.println(driver.findElement(statusTracker).getText());
     }
 
     @Test
@@ -93,6 +89,15 @@ class CreatedPaymentPageTest {
     @DisplayName("Копирование платёжного поручения")
     void testCopyPayment() {
         createdPaymentPage.copyPayment();
+        List<WebElement> numbers = driver.findElements(number);
+        List<WebElement> titles = driver.findElements(title);
+        List<WebElement> amounts = driver.findElements(amount);
+        assertAll("Проверка номера, заголовка и суммы",
+                () -> assertNotEquals(numbers.get(0).getText(), numbers.get(1).getText()),
+                () -> assertEquals(titles.get(0).getText(), titles.get(1).getText()),
+                () -> assertEquals(amounts.get(1).getText(), amounts.get(2).getText()));
+        System.out.println("Номер оригинала: " + numbers.get(1).getText());
+        System.out.println("Номер копии: " + numbers.get(0).getText());
     }
 
     @Test
@@ -100,10 +105,12 @@ class CreatedPaymentPageTest {
     @DisplayName("Редактирование платёжного поручения")
     void testEditPayment() {
         createdPaymentPage.clickEditButton().editPayment("45977");
+        assertEquals("45 977,00", driver.findElements(amount).get(1).getText());
+        System.out.println("Платёжное поручение отредактировано");
     }
 
     @AfterEach
     void tearDown() {
-        driver.quit();
+//        driver.quit();
     }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 
 public class AccountsPaymentsPage {
     private final WebDriver driver;
-    private final By pageHeader = By.cssSelector("h1");
+    private final By pageHeader = By.tagName("h1");
     private final By buttonWrapper = By.className("button-wrapper");
     private final By newPaymentButton = By.cssSelector(".dropdown-new-payment.dropdown-toggle.btn.btn-success");
     private final By paymentOptions = By.cssSelector("ul[role='menu'] li a");

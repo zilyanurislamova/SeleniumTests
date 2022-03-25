@@ -14,7 +14,7 @@ import java.time.Duration;
 public class CreatedPaymentPage {
     private final WebDriver driver;
     private final PaymentType paymentType;
-    private final By paymentStatus = By.cssSelector(".text-status");
+    private final By paymentStatus = By.className("text-status");
     private final By signButton = By.cssSelector("button[data-analytics-label='Get SMS Code']");
     private final By codeField = By.cssSelector("input[placeholder='СМС-код']");
     private final By arrowButton = By.cssSelector("button[aria-label='Отправить']");
@@ -53,6 +53,8 @@ public class CreatedPaymentPage {
     public CreatedPaymentPage removeSign() {
         driver.findElement(removeSignButton).click();
         driver.findElement(submitButton).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).
+                until(ExpectedConditions.stalenessOf(driver.findElement(removeSignButton)));
         return this;
     }
 
@@ -61,10 +63,12 @@ public class CreatedPaymentPage {
      **/
     public void sendPayment() {
         driver.findElement(sendButton).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).
+                until(ExpectedConditions.stalenessOf(driver.findElement(sendButton)));
     }
 
     /**
-     * Изменить
+     * Нажать на кнопку "Изменить"
      **/
     public CommercialPayment clickEditButton() {
         driver.findElements(editAndCopyButtons).get(0).click();
@@ -83,9 +87,12 @@ public class CreatedPaymentPage {
     /**
      * Скопировать
      **/
-    public void copyPayment() {
+    public AccountsPaymentsPage copyPayment() {
         driver.findElements(editAndCopyButtons).get(1).click();
-        driver.findElements(copyOptions).get(0).click();
+        driver.findElement(copyOptions).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3))
+                .until(ExpectedConditions.stalenessOf(driver.findElement(editAndCopyButtons)));
+        return new AccountsPaymentsPage(driver);
     }
 
     /**
@@ -107,7 +114,8 @@ public class CreatedPaymentPage {
      * Нажать на стрелку вправо
      **/
     private void clickArrowButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(3)).
-                until(ExpectedConditions.elementToBeClickable(arrowButton)).click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.elementToBeClickable(arrowButton)).click();
+        wait.until(ExpectedConditions.stalenessOf(driver.findElement(arrowButton)));
     }
 }
