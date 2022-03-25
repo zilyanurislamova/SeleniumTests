@@ -21,7 +21,7 @@ class AccountsPaymentsPageTest {
     LoginPage loginPage;
     MainPage mainPage;
     AccountsPaymentsPage accountsPaymentsPage;
-    By paymentStatus = By.cssSelector(".text-status");
+    By paymentStatus = By.className("text-status");
 
     @BeforeEach
     void setUp() {

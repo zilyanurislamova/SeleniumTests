@@ -10,7 +10,7 @@ import static org.openqa.selenium.Keys.ENTER;
 
 public class CommercialPayment {
     protected WebDriver driver;
-    protected By pageHeader = By.cssSelector("h1");
+    protected By pageHeader = By.tagName("h1");
     protected By payerField = By.cssSelector("input[aria-activedescendant]");
     private final By sumField = By.cssSelector("input[placeholder='0,00']");
     private final By payeeField = By.cssSelector("input[placeholder*='наименование получателя']");
