@@ -42,7 +42,7 @@ public class BudgetPayment extends CommercialPayment {
         selectDate();
         typeUin(uin);
         clickCreateButton();
-        clickSaveButton();
+        submitSave();
         return new CreatedPaymentPage(driver, paymentType);
     }
 
