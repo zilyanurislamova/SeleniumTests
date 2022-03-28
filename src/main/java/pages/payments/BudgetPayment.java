@@ -10,15 +10,15 @@ import static org.openqa.selenium.Keys.ENTER;
 public class BudgetPayment extends CommercialPayment {
     private final PaymentType paymentType = PaymentType.BUDGETPAYMENT;
     private final By payerStatusField = By.xpath("//span[text()='Выберите значение']");
-    private final By payerStatusOption = By.cssSelector("div[title*='01 - налогоплательщик']");
-    private final By kbkField = By.cssSelector("input[placeholder*='КБК']");
-    private final By oktmoField = By.cssSelector("input[placeholder*='ОКТМО']");
+    private final By payerStatusOption = By.cssSelector("[title*='01 - налогоплательщик']");
+    private final By kbkField = By.cssSelector("[placeholder*='КБК']");
+    private final By oktmoField = By.cssSelector("[placeholder*='ОКТМО']");
     private final By paymentReasonField = payerField;
-    private final By taxPeriodList = By.cssSelector("div[data-test-id='TaxPeriod__period--selectDropDown']");
-    private final By taxPeriodOption = By.cssSelector("div[title='0 - не определено']");
-    private final By taxDocNumberField = By.cssSelector("input[placeholder='Введите номер документа']");
+    private final By taxPeriodList = By.cssSelector("[data-test-id='TaxPeriod__period--selectDropDown']");
+    private final By taxPeriodOption = By.cssSelector("[title='0 - не определено']");
+    private final By taxDocNumberField = By.cssSelector("[placeholder='Введите номер документа']");
     private final By dateRadioButton = By.cssSelector("label[for*='id']");
-    private final By uinField = By.cssSelector("input[placeholder='УИН']");
+    private final By uinField = By.cssSelector("[placeholder='УИН']");
 
     public BudgetPayment(WebDriver driver) {
         super(driver);

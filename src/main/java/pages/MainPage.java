@@ -6,8 +6,8 @@ import org.openqa.selenium.WebDriver;
 public class MainPage {
     private final WebDriver driver;
     private final By personName = By.className("person-name");
-    private final By accountsPaymentsOption = By.cssSelector("button[aria-label='Счета и платежи']");
-    private final By logoutButton = By.xpath("//button[@title='Выход']");
+    private final By accountsPaymentsOption = By.cssSelector("[aria-label='Счета и платежи']");
+    private final By logoutButton = By.cssSelector("[title='Выход']");
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
