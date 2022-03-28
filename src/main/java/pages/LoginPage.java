@@ -7,7 +7,7 @@ import static org.openqa.selenium.Keys.ENTER;
 
 public class LoginPage {
     private final WebDriver driver;
-    private final By demoLink = By.linkText("Войти в демо-режим");
+    private final By demoLink = By.className("demo-link");
     private final By loginField = By.id("inputLogin");
     private final By passwordField = By.id("inputPassword");
 
