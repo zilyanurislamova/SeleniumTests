@@ -35,7 +35,7 @@ class LoginPageTest {
     void testLogin() {
         loginPage = new LoginPage(driver);
         mainPage = loginPage.login();
-        assertEquals("Иванов Иван Иванович", mainPage.getDemoAccountName());
+        assertEquals("Иванов Иван Иванович", mainPage.getPersonName());
         System.out.println("Выполнен вход в демо-режим");
     }
 
@@ -46,7 +46,7 @@ class LoginPageTest {
         loginPage = new LoginPage(driver);
         mainPage = loginPage.login();
         loginPage = mainPage.logout();
-        Assertions.assertThrows(NoSuchElementException.class, () -> mainPage.getDemoAccountName());
+        Assertions.assertThrows(NoSuchElementException.class, () -> mainPage.getPersonName());
     }
 
     @Test
