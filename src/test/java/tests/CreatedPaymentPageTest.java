@@ -20,7 +20,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Подписание и отправка на исполнение")
+@DisplayName("Основные операции над платёжным поручением")
 class CreatedPaymentPageTest {
     WebDriver driver;
     LoginPage loginPage;
@@ -50,7 +50,7 @@ class CreatedPaymentPageTest {
 
     @Test
     @Smoke
-    @DisplayName("Подписание платёжного поручения")
+    @DisplayName("Подписание")
     void testSignPayment() {
         createdPaymentPage.signPayment("11111");
         assertEquals("Подписан", driver.findElement(paymentStatus).getText());
@@ -59,7 +59,7 @@ class CreatedPaymentPageTest {
 
     @Test
     @Smoke
-    @DisplayName("Снятие подписи с платёжного поручения")
+    @DisplayName("Снятие подписи")
     void testRemoveSign() {
         createdPaymentPage.signPayment("11111").removeSign();
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
@@ -68,7 +68,7 @@ class CreatedPaymentPageTest {
 
     @Test
     @Regression
-    @DisplayName("Подписание платёжного поручения некорректным кодом")
+    @DisplayName("Подписание некорректным кодом")
     void testSignPaymentWithInvalidCode() {
         assertThrows(TimeoutException.class, () -> createdPaymentPage.signPayment("12345"));
         assertEquals("Создан", driver.findElement(paymentStatus).getText());
@@ -77,7 +77,7 @@ class CreatedPaymentPageTest {
 
     @Test
     @Smoke
-    @DisplayName("Отправка платёжного поручения на исполнение")
+    @DisplayName("Отправка на исполнение")
     void testPerformPayment() {
         createdPaymentPage.signPayment("11111").sendPayment();
         assertEquals("Доставлен", driver.findElement(paymentStatus).getText());
@@ -86,7 +86,7 @@ class CreatedPaymentPageTest {
 
     @Test
     @Smoke
-    @DisplayName("Копирование платёжного поручения")
+    @DisplayName("Копирование")
     void testCopyPayment() {
         createdPaymentPage.copyPayment();
         List<WebElement> numbers = driver.findElements(number);
@@ -102,11 +102,20 @@ class CreatedPaymentPageTest {
 
     @Test
     @Smoke
-    @DisplayName("Редактирование платёжного поручения")
+    @DisplayName("Редактирование")
     void testEditPayment() {
         createdPaymentPage.clickEditButton().editPayment("45977");
         assertEquals("45 977,00", driver.findElements(amount).get(1).getText());
         System.out.println("Платёжное поручение отредактировано");
+    }
+
+    @Test
+    @Smoke
+    @DisplayName("Удаление")
+    void testDeletePayment() {
+        createdPaymentPage.deletePayment();
+        assertNotEquals("1", driver.findElement(number).getText());
+        System.out.println("Платёжное поручение удалено");
     }
 
     @AfterEach
