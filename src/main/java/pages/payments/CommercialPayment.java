@@ -12,13 +12,13 @@ public class CommercialPayment {
     protected WebDriver driver;
     protected By pageHeader = By.tagName("h1");
     protected By payerField = By.cssSelector("input[aria-activedescendant]");
-    private final By sumField = By.cssSelector("input[placeholder='0,00']");
-    private final By payeeField = By.cssSelector("input[placeholder*='наименование получателя']");
-    private final By payeeOption = By.cssSelector("div[role='listbox'] div div[title*='Контрагент 0']");
+    private final By sumField = By.cssSelector("[placeholder='0,00']");
+    private final By payeeField = By.name("payeeName");
+    private final By payeeOption = By.cssSelector("div[role='option']");
     private final By createPayeeButton = By.xpath("//button[text()='Создать нового']");
-    private final By createPaymentButton = By.cssSelector("button[data-analytics-label='Action.CREATE']");
-    private final By saveButton = By.xpath("//button[text()='Всё равно сохранить']");
-    private final By saveEditsButton = By.cssSelector("button[data-analytics-label='Action.SAVE']");
+    private final By createPaymentButton = By.cssSelector("[data-analytics-label='Action.CREATE']");
+    private final By submitSaveButton = By.xpath("//button[text()='Всё равно сохранить']");
+    private final By saveButton = By.cssSelector("[data-analytics-label='Action.SAVE']");
     private final PaymentType paymentType = PaymentType.COMMERCIALPAYMENT;
 
     public CommercialPayment(WebDriver driver) {
@@ -33,7 +33,7 @@ public class CommercialPayment {
         selectPayer(payerName);
         selectPayee(payeeName);
         clickCreateButton();
-        clickSaveButton();
+        submitSave();
         return new CreatedPaymentPage(driver, paymentType);
     }
 
@@ -43,8 +43,8 @@ public class CommercialPayment {
     public CreatedPaymentPage editPayment(String amount) {
         driver.findElement(sumField).clear();
         typeSum(amount);
-        clickSaveEditsButton();
         clickSaveButton();
+        submitSave();
         return new CreatedPaymentPage(driver, paymentType);
     }
 
@@ -86,17 +86,17 @@ public class CommercialPayment {
     }
 
     /**
-     * Нажать на кнопку "Всё равно сохранить"
+     * Подтвердить сохранение
      **/
-    public void clickSaveButton() {
-        driver.findElement(saveButton).click();
+    public void submitSave() {
+        driver.findElement(submitSaveButton).click();
     }
 
     /**
-     * Нажать на кнопку "Сохранить" (отредактированное)
+     * Нажать на кнопку "Сохранить"
      **/
-    public void clickSaveEditsButton() {
-        driver.findElement(saveEditsButton).click();
+    public void clickSaveButton() {
+        driver.findElement(saveButton).click();
     }
 }
 

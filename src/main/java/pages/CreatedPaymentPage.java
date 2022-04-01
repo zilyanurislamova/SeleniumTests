@@ -21,9 +21,11 @@ public class CreatedPaymentPage {
     private final By sendButton = By.cssSelector("button[data-test-id='Payments.Tracker.PaymentOrdersTracker__send--button']");
     private final By removeSignButton = By.xpath("//button[text()='Снять подпись']");
     private final By submitButton = By.xpath("//button[text()='Подтвердить']");
-    private final By editAndCopyButtons = By.cssSelector(".col-xs-6.text-right.actions div button");
+    private final By editAndCopyButtons = By.cssSelector(".actions div *");
     private final By copyOptions = By.cssSelector(".modal-body div button");
     private final By reloadButton = By.xpath("//button[text()='Попробуйте ещё раз']");
+    private final By deleteButton = By.cssSelector("[data-analytics-label='Action.DELETE']");
+    private final By confirmButton = By.cssSelector("[data-analytics-label='confirm']");
 
     public CreatedPaymentPage(WebDriver driver, PaymentType paymentType) {
         this.driver = driver;
@@ -73,7 +75,7 @@ public class CreatedPaymentPage {
     public CommercialPayment clickEditButton() {
         driver.findElements(editAndCopyButtons).get(0).click();
         driver.findElement(reloadButton).click();
-        switch (getPaymentType()){
+        switch (getPaymentType()) {
             case COMMERCIALPAYMENT:
                 return new CommercialPayment(driver);
             case BUDGETPAYMENT:
@@ -92,6 +94,18 @@ public class CreatedPaymentPage {
         driver.findElement(copyOptions).click();
         new WebDriverWait(driver, Duration.ofSeconds(3))
                 .until(ExpectedConditions.stalenessOf(driver.findElement(editAndCopyButtons)));
+        return new AccountsPaymentsPage(driver);
+    }
+
+    /**
+     * Удалить
+     **/
+    public AccountsPaymentsPage deletePayment() {
+        driver.findElements(editAndCopyButtons).get(2).click();
+        driver.findElement(deleteButton).click();
+        driver.findElement(confirmButton).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3)).
+                until(ExpectedConditions.stalenessOf(driver.findElement(editAndCopyButtons)));
         return new AccountsPaymentsPage(driver);
     }
 
